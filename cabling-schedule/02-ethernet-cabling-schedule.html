@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Markaz Tower - Ethernet (Cat6) Cabling Schedule</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', monospace;
+            background: linear-gradient(135deg, #0a0f1a 0%, #0f172a 100%);
+            padding: 30px;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+            border: 1px solid rgba(234,179,8,0.3);
+        }
+        .header h1 {
+            font-size: 28px;
+            background: linear-gradient(135deg, #fff, #eab308);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .cable-card {
+            background: rgba(15,23,42,0.8);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(234,179,8,0.2);
+        }
+        .cable-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #eab308;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(234,179,8,0.3);
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 11px;
+        }
+        th {
+            color: #eab308;
+            font-weight: 600;
+        }
+        tr:hover {
+            background: rgba(234,179,8,0.05);
+        }
+        .patch {
+            color: #22c55e;
+            font-weight: 600;
+        }
+        .summary-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 11px;
+            margin-top: 20px;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(34,197,94,0.2);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔌 AL-MARKAZ TOWER - ETHERNET (Cat6) CABLING SCHEDULE</h1>
+            <p>📍 Blue Area, Islamabad | Complete Copper Network Infrastructure</p>
+            <p>👨‍💻 Network Engineer: Israr Sadaq (CCNA, CCNP) | Berlin, Germany</p>
+        </div>
+
+        <!-- MDF to Distribution Switches -->
+        <div class="cable-card">
+            <div class="cable-title">🔹 MDF ROOM to FLOOR DISTRIBUTION SWITCHES (Cat6 UTP)</div>
+            <table>
+                <thead>
+                    <tr><th>Cable ID</th><th>From (MDF)</th><th>To (Floor)</th><th>Length</th><th>Path</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="patch">MDF-F1</td><td>Core Switch Gi1/0/1</td><td>Floor 1 Dist Switch Gi1/0/24</td><td>25m</td><td>Vertical Riser A</td></tr>
+                    <tr><td class="patch">MDF-F2</td><td>Core Switch Gi1/0/2</td><td>Floor 2 Dist Switch Gi1/0/24</td><td>35m</td><td>Vertical Riser A</td></tr>
+                    <tr><td class="patch">MDF-F3</td><td>Core Switch Gi1/0/3</td><td>Floor 3 Dist Switch Gi1/0/24</td><td>45m</td><td>Vertical Riser A</td></tr>
+                    <tr><td class="patch">MDF-F4</td><td>Core Switch Gi1/0/4</td><td>Floor 4 Dist Switch Gi1/0/24</td><td>55m</td><td>Vertical Riser A</td></tr>
+                    <tr><td class="patch">MDF-F5</td><td>Core Switch Gi1/0/5</td><td>Floor 5 Dist Switch Gi1/0/24</td><td>65m</td><td>Vertical Riser A</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Core to Device Connections -->
+        <div class="cable-card">
+            <div class="cable-title">🔹 MDF ROOM - CORE to DEVICE Connections</div>
+            <table>
+                <thead>
+                    <tr><th>Cable ID</th><th>From</th><th>To</th><th>Length</th><th>Purpose</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="patch">CORE-FW</td><td>Core Switch Gi1/0/48</td><td>Firewall Inside Port</td><td>3m</td><td>Core to Firewall Uplink</td></tr>
+                    <tr><td class="patch">CORE-NVR</td><td>Core Switch Gi1/0/47</td><td>NVR Server (10.10.60.2)</td><td>5m</td><td>NVR Connection</td></tr>
+                    <tr><td class="patch">CORE-OLT</td><td>Core Switch Gi1/0/46</td><td>OLT Management Port</td><td>4m</td><td>OLT Management</td></tr>
+                    <tr><td class="patch">FW-ISP</td><td>Firewall Outside Port</td><td>ISP ONT</td><td>2m</td><td>ISP Connection</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Floor Distribution to ONT -->
+        <div class="cable-card">
+            <div class="cable-title">🔹 FLOOR DISTRIBUTION SWITCH to ONT (Patch Cables)</div>
+            <table>
+                <thead>
+                    <tr><th>Cable ID</th><th>From (Switch)</th><th>To (ONT)</th><th>Length</th><th>VLAN</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="patch">SW1-ONT-1A</td><td>Floor 1 Switch Gi1/0/1</td><td>Apartment 1A ONT (ALCLF10001)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW1-ONT-1B</td><td>Floor 1 Switch Gi1/0/2</td><td>Apartment 1B ONT (ALCLF10002)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW1-ONT-1C</td><td>Floor 1 Switch Gi1/0/3</td><td>Apartment 1C ONT (ALCLF10003)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW1-ONT-1D</td><td>Floor 1 Switch Gi1/0/4</td><td>Apartment 1D ONT (ALCLF10004)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW2-ONT-2A</td><td>Floor 2 Switch Gi1/0/1</td><td>Apartment 2A ONT (ALCLF10005)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW2-ONT-2B</td><td>Floor 2 Switch Gi1/0/2</td><td>Apartment 2B ONT (ALCLF10006)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW2-ONT-2C</td><td>Floor 2 Switch Gi1/0/3</td><td>Apartment 2C ONT (ALCLF10007)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW2-ONT-2D</td><td>Floor 2 Switch Gi1/0/4</td><td>Apartment 2D ONT (ALCLF10008)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW3-ONT-3A</td><td>Floor 3 Switch Gi1/0/1</td><td>Apartment 3A ONT (ALCLF10009)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW3-ONT-3B</td><td>Floor 3 Switch Gi1/0/2</td><td>Apartment 3B ONT (ALCLF10010)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW3-ONT-3C</td><td>Floor 3 Switch Gi1/0/3</td><td>Apartment 3C ONT (ALCLF10011)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW3-ONT-3D</td><td>Floor 3 Switch Gi1/0/4</td><td>Apartment 3D ONT (ALCLF10012)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW4-ONT-4A</td><td>Floor 4 Switch Gi1/0/1</td><td>Apartment 4A ONT (ALCLF10013)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW4-ONT-4B</td><td>Floor 4 Switch Gi1/0/2</td><td>Apartment 4B ONT (ALCLF10014)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW4-ONT-4C</td><td>Floor 4 Switch Gi1/0/3</td><td>Apartment 4C ONT (ALCLF10015)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW4-ONT-4D</td><td>Floor 4 Switch Gi1/0/4</td><td>Apartment 4D ONT (ALCLF10016)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW5-ONT-5A</td><td>Floor 5 Switch Gi1/0/1</td><td>Apartment 5A ONT (ALCLF10017)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW5-ONT-5B</td><td>Floor 5 Switch Gi1/0/2</td><td>Apartment 5B ONT (ALCLF10018)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW5-ONT-5C</td><td>Floor 5 Switch Gi1/0/3</td><td>Apartment 5C ONT (ALCLF10019)</td><td>2m</td><td>VLAN 40</td></tr>
+                    <tr><td class="patch">SW5-ONT-5D</td><td>Floor 5 Switch Gi1/0/4</td><td>Apartment 5D ONT (ALCLF10020)</td><td>2m</td><td>VLAN 40</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Camera Connections -->
+        <div class="cable-card">
+            <div class="cable-title">🔹 SECURITY CAMERA CONNECTIONS (PoE - Cat6)</div>
+            <table>
+                <thead>
+                    <tr><th>Cable ID</th><th>Camera</th><th>From (PoE Switch)</th><th>Length</th><th>Location</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="patch">CAM-01</td><td>CAM-01</td><td>PoE Switch 1 Port 1</td><td>25m</td><td>Basement Entry Ramp</td></tr>
+                    <tr><td class="patch">CAM-02</td><td>CAM-02</td><td>PoE Switch 1 Port 2</td><td>30m</td><td>Basement Exit Ramp</td></tr>
+                    <tr><td class="patch">CAM-03</td><td>CAM-03</td><td>PoE Switch 1 Port 3</td><td>15m</td><td>Parking Row A</td></tr>
+                    <tr><td class="patch">CAM-04</td><td>CAM-04</td><td>PoE Switch 1 Port 4</td><td>18m</td><td>Parking Row B</td></tr>
+                    <tr><td class="patch">CAM-05</td><td>CAM-05</td><td>PoE Switch 1 Port 5</td><td>20m</td><td>Parking Row C</td></tr>
+                    <tr><td class="patch">CAM-06</td><td>CAM-06</td><td>PoE Switch 1 Port 6</td><td>8m</td><td>MDF Room Door</td></tr>
+                    <tr><td class="patch">CAM-07</td><td>CAM-07</td><td>Floor 1 Switch Gi1/0/5</td><td>12m</td><td>Main Entrance</td></tr>
+                    <tr><td class="patch">CAM-08</td><td>CAM-08</td><td>Floor 1 Switch Gi1/0/6</td><td>10m</td><td>Reception</td></tr>
+                    <tr><td class="patch">CAM-09</td><td>CAM-09</td><td>Floor 1 Switch Gi1/0/7</td><td>8m</td><td>Elevator Lobby F1</td></tr>
+                    <tr><td class="patch">CAM-10</td><td>CAM-10</td><td>Floor 1 Switch Gi1/0/8</td><td>6m</td><td>Stairs F1</td></tr>
+                    <tr><td class="patch">CAM-11</td><td>CAM-11</td><td>Floor 1 Switch Gi1/0/9</td><td>15m</td><td>Back Entrance</td></tr>
+                    <tr><td class="patch">CAM-12</td><td>CAM-12</td><td>Floor 2 Switch Gi1/0/5</td><td>10m</td><td>Elevator Lobby F2</td></tr>
+                    <tr><td class="patch">CAM-13</td><td>CAM-13</td><td>Floor 2 Switch Gi1/0/6</td><td>15m</td><td>Corridor F2</td></tr>
+                    <tr><td class="patch">CAM-14</td><td>CAM-14</td><td>Floor 3 Switch Gi1/0/5</td><td>10m</td><td>Elevator Lobby F3</td></tr>
+                    <tr><td class="patch">CAM-15</td><td>CAM-15</td><td>Floor 3 Switch Gi1/0/6</td><td>15m</td><td>Corridor F3</td></tr>
+                    <tr><td class="patch">CAM-16</td><td>CAM-16</td><td>Floor 4 Switch Gi1/0/5</td><td>10m</td><td>Elevator Lobby F4</td></tr>
+                    <tr><td class="patch">CAM-17</td><td>CAM-17</td><td>Floor 4 Switch Gi1/0/6</td><td>15m</td><td>Corridor F4</td></tr>
+                    <tr><td class="patch">CAM-18</td><td>CAM-18</td><td>Floor 5 Switch Gi1/0/5</td><td>10m</td><td>Elevator Lobby F5</td></tr>
+                    <tr><td class="patch">CAM-19</td><td>CAM-19</td><td>Floor 5 Switch Gi1/0/6</td><td>15m</td><td>Corridor F5</td></tr>
+                    <tr><td class="patch">CAM-20</td><td>CAM-20</td><td>Floor 5 Switch Gi1/0/7</td><td>20m</td><td>Rooftop Door</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- AP Connections -->
+        <div class="cable-card">
+            <div class="cable-title">🔹 WIFI ACCESS POINT CONNECTIONS (PoE - Cat6)</div>
+            <table>
+                <thead>
+                    <tr><th>Cable ID</th><th>AP Location</th><th>From (Switch)</th><th>Length</th><th>SSID</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="patch">AP-COMM-1</td><td>Community Hall</td><td>Floor 1 Switch Gi1/0/10</td><td>12m</td><td>AlMarkaz-Common</td></tr>
+                    <tr><td class="patch">AP-COMM-2</td><td>Reception</td><td>Floor 1 Switch Gi1/0/11</td><td>8m</td><td>AlMarkaz-Reception</td></tr>
+                    <tr><td class="patch">AP-COMM-3</td><td>Lobby Area</td><td>Floor 1 Switch Gi1/0/12</td><td>6m</td><td>AlMarkaz-Lobby</td></tr>
+                    <tr><td class="patch">AP-COMM-4</td><td>Basement Parking</td><td>PoE Switch 1 Port 7</td><td>25m</td><td>AlMarkaz-Parking</td></tr>
+                    <tr><td class="patch">AP-COMM-5</td><td>Rooftop Terrace</td><td>Floor 5 Switch Gi1/0/8</td><td>15m</td><td>AlMarkaz-Rooftop</td></tr>
+                    <tr><td class="patch">AP-COMM-6</td><td>MDF Room</td><td>Core Switch Gi1/0/45</td><td>5m</td><td>AlMarkaz-MDF</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Apartment Internal Cabling -->
+        <div class="cable-card">
+            <div class="cable-title">🔹 PER APARTMENT INTERNAL CABLING (Typical for each of 20 Apartments)</div>
+            <table>
+                <thead>
+                    <tr><th>Cable ID</th><th>From</th><th>To</th><th>Length</th><th>Type</th><th>Device Connected</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="patch">ONT-2-RTR</td><td>ONT (Ethernet Port)</td><td>Router (WAN Port)</td><td>2m</td><td>Cat6 Patch</td><td>Internet Connection</td></tr>
+                    <tr><td class="patch">RTR-LAN-1</td><td>Router LAN Port 1</td><td>Living Room Wall Plate</td><td>8m</td><td>Cat6 Solid</td><td>Smart TV / Media Player</td></tr>
+                    <tr><td class="patch">RTR-LAN-2</td><td>Router LAN Port 2</td><td>Master Bedroom Wall Plate</td><td>12m</td><td>Cat6 Solid</td><td>PC / Laptop</td></tr>
+                    <tr><td class="patch">RTR-LAN-3</td><td>Router LAN Port 3</td><td>Bedroom 2 Wall Plate</td><td>10m</td><td>Cat6 Solid</td><td>Guest / Office</td></tr>
+                    <tr><td class="patch">RTR-LAN-4</td><td>Router LAN Port 4</td><td>Bedroom 3 Wall Plate</td><td>14m</td><td>Cat6 Solid</td><td>Study / Child Room</td></tr>
+                </tbody>
+            </table>
+            <div class="summary-box">
+                <p><span class="badge">📌 Per Apartment: 5 cables total (1 Patch + 4 Solid)</span></p>
+                <p><span class="badge">📌 20 Apartments: 100 internal cables total</span></p>
+                <p><span class="badge">📌 Total Internal Cable Length: ~1,200 meters</span></p>
+            </div>
+        </div>
+
+        <!-- CABLE SUMMARY -->
+        <div class="cable-card">
+            <div class="cable-title">📊 ETHERNET CABLING SUMMARY</div>
+            <div class="summary-box">
+                <p><strong>Total Cat6 Cable Length:</strong> 2,850 meters</p>
+                <p><strong>Total Cat6 Patch Cables:</strong> 120 units</p>
+                <p><strong>Total RJ45 Connectors:</strong> 480 pieces</p>
+                <p><strong>Total Wall Plates:</strong> 80 units (4 per apartment)</p>
+                <p><strong>Total Patch Panels:</strong> 6 x 24-port (144 ports)</p>
+                <p><strong>Cable Type:</strong> Cat6 UTP (23 AWG, 250MHz, Pure Copper)</p>
+                <p><strong>Certification:</strong> Fluke DSX-8000 tested to TIA-568.2-D</p>
+                <p><strong>Max Length:</strong> 90m (channel) / 100m (link) with 10m patch</p>
+            </div>
+        </div>
+
+        <!-- COLOR CODE STANDARD -->
+        <div class="cable-card">
+            <div class="cable-title">🎨 CABLE COLOR CODE STANDARD</div>
+            <div class="summary-box">
+                <p><span class="badge" style="background: #22c55e;">🟢 GREEN</span> - Data/Network (ONT to Router, Switch to Switch)</p>
+                <p><span class="badge" style="background: #eab308;">🟡 YELLOW</span> - PoE/Cameras (Power + Data)</p>
+                <p><span class="badge" style="background: #3b82f6;">🔵 BLUE</span> - Management/MDF Connections</p>
+                <p><span class="badge" style="background: #ef4444;">🔴 RED</span> - Critical/Cross Connect</p>
+                <p><span class="badge" style="background: #a855f7;">🟣 PURPLE</span> - VoIP Phones</p>
+                <p><span class="badge" style="background: #f97316;">🟠 ORANGE</span> - WAN/ISP Connections</p>
+            </div>
+        </div>
+
+        <!-- TESTING REQUIREMENTS -->
+        <div class="cable-card">
+            <div class="cable-title">✅ CABLE TESTING REQUIREMENTS</div>
+            <div class="summary-box">
+                <p><strong>Test Standard:</strong> TIA-568.2-D / ISO 11801 Class E</p>
+                <p><strong>Required Tests per cable:</strong></p>
+                <p>• Wire Map (Continuity) - 100%</p>
+                <p>• Insertion Loss (Attenuation) - Max 21.7dB @ 250MHz</p>
+                <p>• NEXT (Near End Crosstalk) - Min 35.3dB @ 250MHz</p>
+                <p>• PSNEXT - Min 32.3dB @ 250MHz</p>
+                <p>• ACR-F (Attenuation to Crosstalk Ratio) - Min 11.1dB @ 250MHz</p>
+                <p>• Return Loss - Min 19.3dB @ 250MHz</p>
+                <p>• Propagation Delay - Max 548ns</p>
+                <p>• Delay Skew - Max 45ns</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🔌 Ethernet Cabling Schedule | Al-Markaz Tower, Islamabad</p>
+            <p>📅 Installation Date: 2024 | Cable Warranty: 25 Years | Performance: 1Gbps up to 100m</p>
+            <p>👨‍💻 Engineer: Israr Sadaq (CCNA, CCNP) | Certified Cat6 Installer</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Markaz Tower - Floor 1 Plan</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #ffffff; padding: 20px; color: #000000; }
+        .print-container { max-width: 1200px; margin: 0 auto; background: white; }
+        .header { text-align: center; padding: 20px; border-bottom: 2px solid #1e293b; margin-bottom: 20px; }
+        .header h1 { font-size: 24px; color: #1e293b; }
+        .header p { color: #64748b; margin-top: 5px; }
+        .floor-plan { padding: 20px; }
+        svg { width: 100%; height: auto; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; }
+        .legend { display: flex; flex-wrap: wrap; gap: 20px; padding: 15px; background: #f1f5f9; margin: 20px; border-radius: 8px; }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+        .legend-bullet { width: 16px; height: 16px; border-radius: 50%; }
+        .legend-bullet.bullet { background: #ef4444; }
+        .legend-bullet.dome { background: #eab308; }
+        .camera-table { margin: 20px; width: calc(100% - 40px); border-collapse: collapse; }
+        .camera-table th, .camera-table td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; font-size: 11px; }
+        .camera-table th { background: #1e293b; color: white; }
+        .apartment-list { display: flex; flex-wrap: wrap; gap: 15px; margin: 20px; }
+        .apartment-card { background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px; width: calc(25% - 15px); }
+        .apartment-card h4 { color: #22c55e; margin-bottom: 5px; }
+        .apartment-card p { font-size: 10px; color: #475569; }
+        .footer { text-align: center; padding: 15px; font-size: 10px; color: #64748b; border-top: 1px solid #e2e8f0; margin-top: 20px; }
+        @media print { body { background: white; padding: 0; } .print-container { box-shadow: none; } }
+    </style>
+</head>
+<body>
+    <div class="print-container">
+        <div class="header">
+            <h1>🏢 AL-MARKAZ TOWER - FLOOR 1 PLAN</h1>
+            <p>Main Floor | Entrance | Reception | 4 Apartments | Community Hall | 5 Security Cameras</p>
+            <p>📍 Blue Area, Islamabad | Date: 2024</p>
+        </div>
+
+        <div class="floor-plan">
+            <svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1000" height="700" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="500" y="30" text-anchor="middle" fill="#1e293b" font-size="16" font-weight="bold">FLOOR 1 - MAIN FLOOR PLAN</text>
+                
+                <!-- Main Entrance -->
+                <rect x="400" y="40" width="200" height="50" fill="#dcfce7" stroke="#22c55e" stroke-width="2" rx="5"/>
+                <text x="500" y="65" text-anchor="middle" fill="#22c55e" font-size="12" font-weight="bold">MAIN ENTRANCE</text>
+                
+                <!-- Reception -->
+                <rect x="400" y="100" width="200" height="90" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" rx="5"/>
+                <text x="500" y="135" text-anchor="middle" fill="#3b82f6" font-size="12" font-weight="bold">RECEPTION</text>
+                <text x="500" y="155" text-anchor="middle" fill="#475569" font-size="10">Security Guard Station</text>
+                <text x="500" y="175" text-anchor="middle" fill="#475569" font-size="10">Visitor Management</text>
+                
+                <!-- Elevator Lobby -->
+                <rect x="400" y="210" width="200" height="70" fill="#f3e8ff" stroke="#a855f7" stroke-width="2" rx="5"/>
+                <text x="500" y="245" text-anchor="middle" fill="#a855f7" font-size="12" font-weight="bold">ELEVATOR LOBBY</text>
+                <text x="500" y="265" text-anchor="middle" fill="#475569" font-size="9">2 Elevators + Stairs</text>
+                
+                <!-- Staircase -->
+                <rect x="320" y="210" width="70" height="70" fill="#fef3c7" stroke="#f97316" stroke-width="2" rx="5"/>
+                <text x="355" y="250" text-anchor="middle" fill="#f97316" font-size="10" font-weight="bold">STAIRS</text>
+                
+                <!-- Back Entrance -->
+                <rect x="50" y="300" width="100" height="60" fill="#fee2e2" stroke="#ef4444" stroke-width="2" rx="5"/>
+                <text x="100" y="330" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="bold">BACK</text>
+                <text x="100" y="345" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="bold">ENTRANCE</text>
+                
+                <!-- Apartments -->
+                <rect x="170" y="400" width="150" height="90" fill="#f1f5f9" stroke="#22c55e" stroke-width="1.5" rx="5"/>
+                <text x="245" y="435" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">1A</text>
+                <text x="245" y="455" text-anchor="middle" fill="#475569" font-size="9">ONT: ALCLF10001</text>
+                <text x="245" y="470" text-anchor="middle" fill="#475569" font-size="9">Router: 10.10.40.18</text>
+                
+                <rect x="340" y="400" width="150" height="90" fill="#f1f5f9" stroke="#22c55e" stroke-width="1.5" rx="5"/>
+                <text x="415" y="435" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">1B</text>
+                <text x="415" y="455" text-anchor="middle" fill="#475569" font-size="9">ONT: ALCLF10002</text>
+                <text x="415" y="470" text-anchor="middle" fill="#475569" font-size="9">Router: 10.10.40.19</text>
+                
+                <rect x="510" y="400" width="150" height="90" fill="#f1f5f9" stroke="#22c55e" stroke-width="1.5" rx="5"/>
+                <text x="585" y="435" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">1C</text>
+                <text x="585" y="455" text-anchor="middle" fill="#475569" font-size="9">ONT: ALCLF10003</text>
+                <text x="585" y="470" text-anchor="middle" fill="#475569" font-size="9">Router: 10.10.40.20</text>
+                
+                <rect x="680" y="400" width="150" height="90" fill="#f1f5f9" stroke="#22c55e" stroke-width="1.5" rx="5"/>
+                <text x="755" y="435" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">1D</text>
+                <text x="755" y="455" text-anchor="middle" fill="#475569" font-size="9">ONT: ALCLF10004</text>
+                <text x="755" y="470" text-anchor="middle" fill="#475569" font-size="9">Router: 10.10.40.21</text>
+                
+                <!-- Community Hall -->
+                <rect x="170" y="520" width="660" height="120" fill="#e0f2fe" stroke="#00d4ff" stroke-width="2" rx="5"/>
+                <text x="500" y="560" text-anchor="middle" fill="#00d4ff" font-size="14" font-weight="bold">COMMUNITY HALL / COMMON AREA</text>
+                <text x="500" y="585" text-anchor="middle" fill="#475569" font-size="10">WiFi 6 Coverage | Seating Capacity: 50 | Events & Gatherings</text>
+                <text x="500" y="610" text-anchor="middle" fill="#475569" font-size="10">AP: Cisco 9130AXI | SSID: AlMarkaz-Common</text>
+                
+                <!-- CAMERAS -->
+                <circle cx="500" cy="90" r="14" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+                <text x="500" y="94" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">07</text>
+                <text x="500" y="72" text-anchor="middle" fill="#ef4444" font-size="9">CAM-07</text>
+                
+                <circle cx="500" cy="150" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                <text x="500" y="154" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">08</text>
+                <text x="500" y="172" text-anchor="middle" fill="#eab308" font-size="9">CAM-08 (360°)</text>
+                
+                <circle cx="500" cy="245" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                <text x="500" y="249" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">09</text>
+                <text x="500" y="267" text-anchor="middle" fill="#eab308" font-size="9">CAM-09</text>
+                
+                <circle cx="355" cy="245" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                <text x="355" y="249" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">10</text>
+                <text x="355" y="267" text-anchor="middle" fill="#eab308" font-size="9">CAM-10</text>
+                
+                <circle cx="100" cy="330" r="14" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+                <text x="100" y="334" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">11</text>
+                <text x="100" y="312" text-anchor="middle" fill="#ef4444" font-size="9">CAM-11</text>
+            </svg>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item"><div class="legend-bullet bullet"></div><span>Bullet Camera (Entrances)</span></div>
+            <div class="legend-item"><div class="legend-bullet dome"></div><span>Dome Camera (Interior)</span></div>
+            <div class="legend-item"><span>🏪 Apartment</span></div>
+            <div class="legend-item"><span>🏛️ Common Area</span></div>
+        </div>
+
+        <div class="apartment-list">
+            <div class="apartment-card"><h4>Apartment 1A</h4><p>ONT: ALCLF10001</p><p>IP: 10.10.40.18</p><p>SSID: AlMarkaz-1A</p></div>
+            <div class="apartment-card"><h4>Apartment 1B</h4><p>ONT: ALCLF10002</p><p>IP: 10.10.40.19</p><p>SSID: AlMarkaz-1B</p></div>
+            <div class="apartment-card"><h4>Apartment 1C</h4><p>ONT: ALCLF10003</p><p>IP: 10.10.40.20</p><p>SSID: AlMarkaz-1C</p></div>
+            <div class="apartment-card"><h4>Apartment 1D</h4><p>ONT: ALCLF10004</p><p>IP: 10.10.40.21</p><p>SSID: AlMarkaz-1D</p></div>
+        </div>
+
+        <table class="camera-table">
+            <thead><tr><th>Camera ID</th><th>Location</th><th>Type</th><th>IP Address</th><th>Coverage</th><th>Purpose</th></tr></thead>
+            <tbody>
+                <tr><td><strong>CAM-07</strong></td><td>Main Entrance</td><td>Bullet 4K</td><td>10.10.20.21</td><td>Outdoor - 20m</td><td>Building entry monitoring</td></tr>
+                <tr><td><strong>CAM-08</strong></td><td>Reception Area</td><td>Dome 360°</td><td>10.10.20.22</td><td>360° - 15m</td><td>Lobby & visitor monitoring</td></tr>
+                <tr><td><strong>CAM-09</strong></td><td>Elevator Lobby</td><td>Dome 4K</td><td>10.10.20.23</td><td>Fixed - Lobby</td><td>Elevator access monitoring</td></tr>
+                <tr><td><strong>CAM-10</strong></td><td>Staircase F1</td><td>Dome 4K</td><td>10.10.20.24</td><td>Fixed - Stairwell</td><td>Stairwell security</td></tr>
+                <tr><td><strong>CAM-11</strong></td><td>Back Entrance</td><td>Bullet 4K</td><td>10.10.20.25</td><td>Outdoor - 15m</td><td>Secondary entry monitoring</td></tr>
+            </tbody>
+        </table>
+
+        <div class="footer">
+            <p>Al-Markaz Tower - Floor 1 Plan | Total Cameras: 5 | Fire Extinguishers: 2 locations | First Aid: Reception</p>
+            <p>📞 Security: Ext 100 | Emergency Exit: Back Entrance | Assembly Point: Main Entrance</p>
+        </div>
+    </div>
+</body>
+</html>

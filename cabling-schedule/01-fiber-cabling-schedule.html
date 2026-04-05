@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Markaz Tower - Fiber Optic Cabling Schedule</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', monospace;
+            background: linear-gradient(135deg, #0a0f1a 0%, #0f172a 100%);
+            padding: 30px;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+            border: 1px solid rgba(0,212,255,0.3);
+        }
+        .header h1 {
+            font-size: 28px;
+            background: linear-gradient(135deg, #fff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .cable-card {
+            background: rgba(15,23,42,0.8);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0,212,255,0.2);
+        }
+        .cable-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #00d4ff;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(0,212,255,0.3);
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 12px;
+        }
+        th {
+            color: #00d4ff;
+            font-weight: 600;
+        }
+        tr:hover {
+            background: rgba(0,212,255,0.05);
+        }
+        .fiber {
+            color: #22c55e;
+            font-weight: 600;
+        }
+        .cat6 {
+            color: #eab308;
+            font-weight: 600;
+        }
+        .summary-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 11px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📡 AL-MARKAZ TOWER - FIBER OPTIC CABLING SCHEDULE</h1>
+            <p>📍 Blue Area, Islamabad | Complete Fiber Distribution Network</p>
+            <p>👨‍💻 Network Engineer: Israr Sadaq (CCNA, CCNP) | Berlin, Germany</p>
+        </div>
+
+        <!-- Main Trunk Fiber -->
+        <div class="cable-card">
+            <div class="cable-title">🔹 MAIN TRUNK FIBER (ISP to MDF)</div>
+            <table>
+                <thead>
+                    <tr><th>Cable ID</th><th>From</th><th>To</th><th>Type</th><th>Core Count</th><th>Length</th><th>Connector</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="fiber">TRUNK-01</td><td>ISP Termination Point (Street)</td><td>MDF Room (Basement)</td><td>Single-mode OS2</td><td>24 cores</td><td>50m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">TRUNK-01A</td><td>ISP Termination Point</td><td>Firewall WAN Port</td><td>Single-mode OS2</td><td>2 cores</td><td>15m</td><td>LC/UPC</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- OLT to Splitter -->
+        <div class="cable-card">
+            <div class="cable-title">🔹 OLT to SPLITTER (Basement MDF)</div>
+            <table>
+                <thead>
+                    <tr><th>Cable ID</th><th>From</th><th>To</th><th>Type</th><th>Core Count</th><th>Length</th><th>Connector</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="fiber">OLT-SPL-01</td><td>OLT PON Port 1 (Nokia 7360)</td><td>1:32 Splitter Input A</td><td>Single-mode OS2</td><td>1 core</td><td>2m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">OLT-SPL-02</td><td>OLT PON Port 2</td><td>1:32 Splitter Input B</td><td>Single-mode OS2</td><td>1 core</td><td>2m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">OLT-SPL-03</td><td>OLT PON Port 3</td><td>1:32 Splitter Input C</td><td>Single-mode OS2</td><td>1 core</td><td>2m</td><td>SC/APC</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Splitter to Floor Distribution -->
+        <div class="cable-card">
+            <div class="cable-title">🔹 SPLITTER to FLOOR DISTRIBUTION BOXES</div>
+            <table>
+                <thead>
+                    <tr><th>Cable ID</th><th>From</th><th>To</th><th>Type</th><th>Core Count</th><th>Length</th><th>Route</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="fiber">SPL-F1-01</td><td>1:32 Splitter Port 1</td><td>Floor 1 Distribution Box</td><td>Single-mode OS2</td><td>8 cores</td><td>20m</td><td>Vertical Tray A</td></tr>
+                    <tr><td class="fiber">SPL-F1-02</td><td>1:32 Splitter Port 2</td><td>Floor 1 Distribution Box</td><td>Single-mode OS2</td><td>8 cores</td><td>20m</td><td>Vertical Tray A</td></tr>
+                    <tr><td class="fiber">SPL-F2-01</td><td>1:32 Splitter Port 3</td><td>Floor 2 Distribution Box</td><td>Single-mode OS2</td><td>8 cores</td><td>30m</td><td>Vertical Tray A</td></tr>
+                    <tr><td class="fiber">SPL-F2-02</td><td>1:32 Splitter Port 4</td><td>Floor 2 Distribution Box</td><td>Single-mode OS2</td><td>8 cores</td><td>30m</td><td>Vertical Tray A</td></tr>
+                    <tr><td class="fiber">SPL-F3-01</td><td>1:32 Splitter Port 5</td><td>Floor 3 Distribution Box</td><td>Single-mode OS2</td><td>8 cores</td><td>40m</td><td>Vertical Tray A</td></tr>
+                    <tr><td class="fiber">SPL-F3-02</td><td>1:32 Splitter Port 6</td><td>Floor 3 Distribution Box</td><td>Single-mode OS2</td><td>8 cores</td><td>40m</td><td>Vertical Tray A</td></tr>
+                    <tr><td class="fiber">SPL-F4-01</td><td>1:32 Splitter Port 7</td><td>Floor 4 Distribution Box</td><td>Single-mode OS2</td><td>8 cores</td><td>50m</td><td>Vertical Tray A</td></tr>
+                    <tr><td class="fiber">SPL-F4-02</td><td>1:32 Splitter Port 8</td><td>Floor 4 Distribution Box</td><td>Single-mode OS2</td><td>8 cores</td><td>50m</td><td>Vertical Tray A</td></tr>
+                    <tr><td class="fiber">SPL-F5-01</td><td>1:32 Splitter Port 9</td><td>Floor 5 Distribution Box</td><td>Single-mode OS2</td><td>8 cores</td><td>60m</td><td>Vertical Tray A</td></tr>
+                    <tr><td class="fiber">SPL-F5-02</td><td>1:32 Splitter Port 10</td><td>Floor 5 Distribution Box</td><td>Single-mode OS2</td><td>8 cores</td><td>60m</td><td>Vertical Tray A</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Floor Distribution to Each Apartment (Fiber) -->
+        <div class="cable-card">
+            <div class="cable-title">🔹 FLOOR DISTRIBUTION to APARTMENT ONT (Fiber Drop Cables)</div>
+            <table>
+                <thead>
+                    <tr><th>Cable ID</th><th>From</th><th>To</th><th>Type</th><th>Length</th><th>Connector</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="fiber">FIB-1A</td><td>Floor 1 Dist Box Port 1</td><td>Apartment 1A - ONT (ALCLF10001)</td><td>Single-mode OS2</td><td>15m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-1B</td><td>Floor 1 Dist Box Port 2</td><td>Apartment 1B - ONT (ALCLF10002)</td><td>Single-mode OS2</td><td>18m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-1C</td><td>Floor 1 Dist Box Port 3</td><td>Apartment 1C - ONT (ALCLF10003)</td><td>Single-mode OS2</td><td>12m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-1D</td><td>Floor 1 Dist Box Port 4</td><td>Apartment 1D - ONT (ALCLF10004)</td><td>Single-mode OS2</td><td>14m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-2A</td><td>Floor 2 Dist Box Port 1</td><td>Apartment 2A - ONT (ALCLF10005)</td><td>Single-mode OS2</td><td>10m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-2B</td><td>Floor 2 Dist Box Port 2</td><td>Apartment 2B - ONT (ALCLF10006)</td><td>Single-mode OS2</td><td>12m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-2C</td><td>Floor 2 Dist Box Port 3</td><td>Apartment 2C - ONT (ALCLF10007)</td><td>Single-mode OS2</td><td>15m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-2D</td><td>Floor 2 Dist Box Port 4</td><td>Apartment 2D - ONT (ALCLF10008)</td><td>Single-mode OS2</td><td>10m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-3A</td><td>Floor 3 Dist Box Port 1</td><td>Apartment 3A - ONT (ALCLF10009)</td><td>Single-mode OS2</td><td>14m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-3B</td><td>Floor 3 Dist Box Port 2</td><td>Apartment 3B - ONT (ALCLF10010)</td><td>Single-mode OS2</td><td>16m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-3C</td><td>Floor 3 Dist Box Port 3</td><td>Apartment 3C - ONT (ALCLF10011)</td><td>Single-mode OS2</td><td>11m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-3D</td><td>Floor 3 Dist Box Port 4</td><td>Apartment 3D - ONT (ALCLF10012)</td><td>Single-mode OS2</td><td>13m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-4A</td><td>Floor 4 Dist Box Port 1</td><td>Apartment 4A - ONT (ALCLF10013)</td><td>Single-mode OS2</td><td>15m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-4B</td><td>Floor 4 Dist Box Port 2</td><td>Apartment 4B - ONT (ALCLF10014)</td><td>Single-mode OS2</td><td>12m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-4C</td><td>Floor 4 Dist Box Port 3</td><td>Apartment 4C - ONT (ALCLF10015)</td><td>Single-mode OS2</td><td>10m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-4D</td><td>Floor 4 Dist Box Port 4</td><td>Apartment 4D - ONT (ALCLF10016)</td><td>Single-mode OS2</td><td>14m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-5A</td><td>Floor 5 Dist Box Port 1</td><td>Apartment 5A - ONT (ALCLF10017)</td><td>Single-mode OS2</td><td>18m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-5B</td><td>Floor 5 Dist Box Port 2</td><td>Apartment 5B - ONT (ALCLF10018)</td><td>Single-mode OS2</td><td>16m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-5C</td><td>Floor 5 Dist Box Port 3</td><td>Apartment 5C - ONT (ALCLF10019)</td><td>Single-mode OS2</td><td>12m</td><td>SC/APC</td></tr>
+                    <tr><td class="fiber">FIB-5D</td><td>Floor 5 Dist Box Port 4</td><td>Apartment 5D - ONT (ALCLF10020)</td><td>Single-mode OS2</td><td>14m</td><td>SC/APC</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Fiber Summary -->
+        <div class="cable-card">
+            <div class="cable-title">📊 FIBER OPTIC SUMMARY</div>
+            <div class="summary-box">
+                <p><strong>Total Fiber Length:</strong> 550 meters</p>
+                <p><strong>Total Fiber Cables:</strong> 36 cables</p>
+                <p><strong>Fiber Type:</strong> Single-mode OS2 (ITU-T G.652.D)</p>
+                <p><strong>Connector Type:</strong> SC/APC (Green) for all GPON connections</p>
+                <p><strong>Splice Points:</strong> 24 splices (MDF + Floor Distribution Boxes)</p>
+                <p><strong>Max Attenuation Budget:</strong> 28dB (OLT to furthest ONT: 5D = 60m)</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📡 Fiber Optic Cabling Schedule | Al-Markaz Tower, Islamabad</p>
+            <p>🔧 All fiber cables to be tested with OTDR after installation | Max loss: 0.35dB/km</p>
+        </div>
+    </div>
+</body>
+</html>

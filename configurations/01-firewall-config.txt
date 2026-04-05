@@ -1,0 +1,188 @@
+! ============================================================================
+! AL-MARKAZ TOWER - ISLAMABAD
+! FIREWALL: Cisco Firepower 2130 (FTD Mode)
+! Hostname: ALMARKAZ-FW
+! Management IP: 10.10.10.1
+! Date: 2024
+! Engineer: Israr Sadaq (CCNP)
+! ============================================================================
+
+configure terminal
+!
+! ============================== SYSTEM SETTINGS ==============================
+!
+hostname ALMARKAZ-FW
+enable secret AlMarkaz@2024#Secure
+clock timezone PST +5
+ntp server 0.pool.ntp.org
+!
+! ============================== INTERFACE CONFIGURATION ==============================
+!
+! Outside Interface (ISP Connection)
+interface GigabitEthernet0/0
+ description *** ISP UPLINK - PTCL/Transworld 1Gbps ***
+ nameif outside
+ security-level 0
+ ip address dhcp setroute
+!
+! Inside Interface (Core Switch)
+interface GigabitEthernet0/1
+ description *** CORE SWITCH UPLINK - TRUNK ***
+ nameif inside
+ security-level 100
+ no ip address
+!
+! ============================== VLAN SUB-INTERFACES ==============================
+!
+! VLAN 10 - Management Network
+interface GigabitEthernet0/1.10
+ vlan 10
+ nameif management
+ security-level 100
+ ip address 10.10.10.1 255.255.255.0
+!
+! VLAN 20 - CCTV Network
+interface GigabitEthernet0/1.20
+ vlan 20
+ nameif cctv
+ security-level 80
+ ip address 10.10.20.1 255.255.255.0
+!
+! VLAN 30 - WiFi Common Areas
+interface GigabitEthernet0/1.30
+ vlan 30
+ nameif wifi-common
+ security-level 90
+ ip address 10.10.30.1 255.255.255.0
+!
+! VLAN 40 - Apartments Network
+interface GigabitEthernet0/1.40
+ vlan 40
+ nameif apartments
+ security-level 50
+ ip address 10.10.40.1 255.255.248.0
+!
+! VLAN 50 - VoIP Network
+interface GigabitEthernet0/1.50
+ vlan 50
+ nameif voip
+ security-level 80
+ ip address 10.10.50.1 255.255.255.0
+!
+! VLAN 60 - NVR Storage Network
+interface GigabitEthernet0/1.60
+ vlan 60
+ nameif nvr
+ security-level 75
+ ip address 10.10.60.1 255.255.255.0
+!
+! ============================== DHCP SERVICES ==============================
+!
+! DHCP for Management VLAN
+dhcpd address 10.10.10.50-10.10.10.100 management
+dhcpd dns 8.8.8.8 8.8.4.4 interface management
+dhcpd enable management
+!
+! DHCP for Apartments (via Router)
+! Handled by individual apartment routers
+!
+! ============================== NAT CONFIGURATION ==============================
+!
+! Dynamic NAT for all internal networks
+nat (management,outside) source dynamic any interface
+nat (cctv,outside) source dynamic any interface
+nat (wifi-common,outside) source dynamic any interface
+nat (apartments,outside) source dynamic any interface
+nat (voip,outside) source dynamic any interface
+nat (nvr,outside) source dynamic any interface
+!
+! ============================== ACCESS CONTROL LISTS ==============================
+!
+! Allow management access from inside
+access-list management_access_in extended permit ip any any
+access-group management_access_in in interface management
+!
+! CCTV can only talk to NVR
+access-list cctv_access_in extended permit ip 10.10.20.0 255.255.255.0 10.10.60.0 255.255.255.0
+access-group cctv_access_in in interface cctv
+!
+! Apartments internet access only
+access-list apartments_access_in extended permit tcp any any eq 80
+access-list apartments_access_in extended permit tcp any any eq 443
+access-list apartments_access_in extended permit udp any any eq 53
+access-list apartments_access_in extended permit icmp any any
+access-group apartments_access_in in interface apartments
+!
+! VoIP to SIP provider
+access-list voip_access_in extended permit udp any any eq 5060
+access-list voip_access_in extended permit udp any any range 10000 20000
+access-group voip_access_in in interface voip
+!
+! NVR inbound for remote viewing (VPN only)
+access-list nvr_access_in extended permit tcp 10.10.0.0 255.255.0.0 host 10.10.60.2 eq 443
+access-group nvr_access_in in interface nvr
+!
+! ============================== VPN CONFIGURATION ==============================
+!
+! AnyConnect SSL VPN for Remote Management
+webvpn
+ enable outside
+ anyconnect image disk0:/anyconnect-win-4.10.07061.pkg 1
+ anyconnect enable
+ tunnel-group-list enable
+!
+group-policy VPN-GroupPolicy internal
+group-policy VPN-GroupPolicy attributes
+ dns-server value 8.8.8.8
+ vpn-tunnel-protocol ssl-client
+!
+tunnel-group VPN-TunnelGroup type remote-access
+tunnel-group VPN-TunnelGroup general-attributes
+ address-pool VPN-Pool
+ default-group-policy VPN-GroupPolicy
+!
+ip local pool VPN-Pool 10.10.100.1-10.10.100.50 mask 255.255.255.0
+!
+! ============================== THREAT DETECTION ==============================
+!
+! Enable IPS/IDS
+policy-list global_policy
+ inspect dns preset_dns_map
+ inspect ftp
+ inspect h323 h225
+ inspect h323 ras
+ inspect rsh
+ inspect rtsp
+ inspect esmtp
+ inspect sqlnet
+ inspect skinny
+ inspect sunrpc
+ inspect xdmcp
+ inspect sip
+ inspect netbios
+ inspect tftp
+ inspect icmp
+!
+! ============================== LOGGING & MONITORING ==============================
+!
+logging enable
+logging timestamp
+logging buffered informational
+logging trap notifications
+logging host management 10.10.10.50
+!
+! ============================== SNMP CONFIGURATION ==============================
+!
+snmp-server host management 10.10.10.2 community AlMarkazMonitor
+snmp-server enable traps
+!
+! ============================== BACKUP & SAVE ==============================
+!
+write memory
+copy running-config startup-config
+!
+! ============================== END OF CONFIGURATION ==============================
+! Configuration by: Israr Sadaq (CCNA, CCNP)
+! Date: 2024
+! Al-Markaz Tower - Islamabad
+! ============================================================================

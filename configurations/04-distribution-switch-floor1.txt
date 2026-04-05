@@ -1,0 +1,140 @@
+! ============================================================================
+! AL-MARKAZ TOWER - ISLAMABAD
+! DISTRIBUTION SWITCH: Cisco Catalyst 9200-24P
+! Location: Floor 1
+! Hostname: ALMARKAZ-FLOOR1-SW
+! Management IP: 10.10.10.11
+! Date: 2024
+! Engineer: Israr Sadaq (CCNP)
+! ============================================================================
+
+configure terminal
+!
+! ============================== SYSTEM SETTINGS ==============================
+!
+hostname ALMARKAZ-FLOOR1-SW
+enable secret AlMarkaz@2024#Secure
+clock timezone PST +5
+ntp server 10.10.10.1
+!
+! ============================== VLAN CONFIGURATION ==============================
+!
+vlan 10
+ name Management
+!
+vlan 20
+ name CCTV
+!
+vlan 30
+ name WiFi-Common
+!
+vlan 40
+ name Apartments
+!
+! ============================== MANAGEMENT INTERFACE ==============================
+!
+interface Vlan10
+ ip address 10.10.10.11 255.255.255.0
+ no shutdown
+!
+ip default-gateway 10.10.10.1
+!
+! ============================== UPLINK TO CORE SWITCH ==============================
+!
+interface GigabitEthernet1/0/24
+ description *** UPLINK TO CORE SWITCH - TRUNK ***
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40
+ spanning-tree portfast trunk
+!
+! ============================== APARTMENT PORTS (VLAN 40) ==============================
+!
+! Apartment 1A - Port 1
+interface GigabitEthernet1/0/1
+ description *** APARTMENT 1A - ONT ALCLF10001 ***
+ switchport access vlan 40
+ switchport mode access
+ spanning-tree portfast
+!
+! Apartment 1B - Port 2
+interface GigabitEthernet1/0/2
+ description *** APARTMENT 1B - ONT ALCLF10002 ***
+ switchport access vlan 40
+ switchport mode access
+ spanning-tree portfast
+!
+! Apartment 1C - Port 3
+interface GigabitEthernet1/0/3
+ description *** APARTMENT 1C - ONT ALCLF10003 ***
+ switchport access vlan 40
+ switchport mode access
+ spanning-tree portfast
+!
+! Apartment 1D - Port 4
+interface GigabitEthernet1/0/4
+ description *** APARTMENT 1D - ONT ALCLF10004 ***
+ switchport access vlan 40
+ switchport mode access
+ spanning-tree portfast
+!
+! ============================== CCTV CAMERA PORTS (VLAN 20) ==============================
+!
+! CAM-07 - Main Entrance
+interface GigabitEthernet1/0/5
+ description *** CAM-07 - MAIN ENTRANCE BULLET 4K ***
+ switchport access vlan 20
+ switchport mode access
+ spanning-tree portfast
+!
+! CAM-08 - Reception
+interface GigabitEthernet1/0/6
+ description *** CAM-08 - RECEPTION DOME 4K ***
+ switchport access vlan 20
+ switchport mode access
+ spanning-tree portfast
+!
+! CAM-09 - Elevator Lobby
+interface GigabitEthernet1/0/7
+ description *** CAM-09 - ELEVATOR LOBBY DOME 4K ***
+ switchport access vlan 20
+ switchport mode access
+ spanning-tree portfast
+!
+! CAM-10 - Staircase
+interface GigabitEthernet1/0/8
+ description *** CAM-10 - STAIRCASE DOME 4K ***
+ switchport access vlan 20
+ switchport mode access
+ spanning-tree portfast
+!
+! CAM-11 - Back Entrance
+interface GigabitEthernet1/0/9
+ description *** CAM-11 - BACK ENTRANCE BULLET 4K ***
+ switchport access vlan 20
+ switchport mode access
+ spanning-tree portfast
+!
+! ============================== AP PORTS (VLAN 30) ==============================
+!
+interface GigabitEthernet1/0/10
+ description *** WIFI AP - COMMUNITY HALL ***
+ switchport access vlan 30
+ switchport mode access
+ spanning-tree portfast
+!
+! ============================== PORT SECURITY ==============================
+!
+interface range GigabitEthernet1/0/1-4
+ switchport port-security
+ switchport port-security maximum 1
+ switchport port-security violation restrict
+ switchport port-security mac-address sticky
+!
+! ============================== SAVE ==============================
+!
+write memory
+!
+! ============================================================================
+! Configuration by: Israr Sadaq (CCNA, CCNP)
+! Date: 2024
+! ============================================================================

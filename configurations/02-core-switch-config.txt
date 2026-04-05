@@ -1,0 +1,190 @@
+! ============================================================================
+! AL-MARKAZ TOWER - ISLAMABAD
+! CORE SWITCH: Cisco Catalyst 9300-48P
+! Hostname: ALMARKAZ-CORE-SW
+! Management IP: 10.10.10.2
+! Date: 2024
+! Engineer: Israr Sadaq (CCNP)
+! ============================================================================
+
+configure terminal
+!
+! ============================== SYSTEM SETTINGS ==============================
+!
+hostname ALMARKAZ-CORE-SW
+enable secret AlMarkaz@2024#Secure
+service password-encryption
+clock timezone PST +5
+ntp server 10.10.10.1
+!
+! ============================== VLAN CONFIGURATION ==============================
+!
+vlan 10
+ name Management
+!
+vlan 20
+ name CCTV
+!
+vlan 30
+ name WiFi-Common
+!
+vlan 40
+ name Apartments
+!
+vlan 50
+ name VoIP
+!
+vlan 60
+ name NVR-Storage
+!
+vlan 99
+ name Native-VLAN
+!
+! ============================== VLAN INTERFACES (SVI) ==============================
+!
+interface Vlan10
+ description Management VLAN Gateway
+ ip address 10.10.10.2 255.255.255.0
+ no shutdown
+!
+interface Vlan20
+ description CCTV VLAN Gateway
+ ip address 10.10.20.1 255.255.255.0
+ no shutdown
+!
+interface Vlan30
+ description WiFi Common VLAN Gateway
+ ip address 10.10.30.1 255.255.255.0
+ no shutdown
+!
+interface Vlan40
+ description Apartments VLAN Gateway
+ ip address 10.10.40.1 255.255.248.0
+ no shutdown
+!
+interface Vlan50
+ description VoIP VLAN Gateway
+ ip address 10.10.50.1 255.255.255.0
+ no shutdown
+!
+interface Vlan60
+ description NVR Storage VLAN Gateway
+ ip address 10.10.60.1 255.255.255.0
+ no shutdown
+!
+! ============================== DHCP RELAY ==============================
+!
+interface Vlan40
+ ip helper-address 10.10.40.1
+!
+! ============================== PORT CONFIGURATIONS ==============================
+!
+! Uplink to Firewall (Trunk)
+interface GigabitEthernet1/0/48
+ description *** UPLINK TO FIREWALL ***
+ switchport mode trunk
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,40,50,60
+ spanning-tree portfast trunk
+!
+! ============================== DISTRIBUTION SWITCH PORTS (TRUNKS) ==============================
+!
+! Floor 1 Distribution Switch
+interface GigabitEthernet1/0/1
+ description *** FLOOR 1 DISTRIBUTION SWITCH ***
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,50,60
+ spanning-tree portfast trunk
+!
+! Floor 2 Distribution Switch
+interface GigabitEthernet1/0/2
+ description *** FLOOR 2 DISTRIBUTION SWITCH ***
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,50,60
+ spanning-tree portfast trunk
+!
+! Floor 3 Distribution Switch
+interface GigabitEthernet1/0/3
+ description *** FLOOR 3 DISTRIBUTION SWITCH ***
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,50,60
+ spanning-tree portfast trunk
+!
+! Floor 4 Distribution Switch
+interface GigabitEthernet1/0/4
+ description *** FLOOR 4 DISTRIBUTION SWITCH ***
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,50,60
+ spanning-tree portfast trunk
+!
+! Floor 5 Distribution Switch
+interface GigabitEthernet1/0/5
+ description *** FLOOR 5 DISTRIBUTION SWITCH ***
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,50,60
+ spanning-tree portfast trunk
+!
+! ============================== NVR CONNECTION ==============================
+!
+interface GigabitEthernet1/0/47
+ description *** NVR SERVER - HIKVISION 64CH ***
+ switchport access vlan 60
+ switchport mode access
+ spanning-tree portfast
+!
+! ============================== OLT CONNECTION ==============================
+!
+interface GigabitEthernet1/0/46
+ description *** OLT - NOKIA 7360 ISAM FX ***
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+!
+! ============================== SPANNING TREE CONFIGURATION ==============================
+!
+spanning-tree mode rapid-pvst
+spanning-tree vlan 1,10,20,30,40,50,60 root primary
+!
+! ============================== PORT SECURITY ==============================
+!
+! Management Port Security
+interface range GigabitEthernet1/0/46-48
+ switchport port-security
+ switchport port-security maximum 2
+ switchport port-security violation restrict
+ switchport port-security aging time 60
+!
+! ============================== STORM CONTROL ==============================
+!
+storm-control broadcast level 10.00
+storm-control multicast level 10.00
+storm-control unicast level 10.00
+!
+! ============================== LOGGING ==============================
+!
+logging buffered 16384 informational
+logging host 10.10.10.50
+logging trap notifications
+!
+! ============================== SNMP ==============================
+!
+snmp-server community AlMarkazMonitor RO
+snmp-server location "Al-Markaz Tower, Basement MDF"
+snmp-server contact "Israr Sadaq - +49 123 456 789"
+snmp-server enable traps
+!
+! ============================== SAVE CONFIGURATION ==============================
+!
+write memory
+copy running-config startup-config
+!
+! ============================== VERIFICATION COMMANDS ==============================
+! show vlan brief
+! show interface trunk
+! show spanning-tree vlan 40
+! show ip interface brief
+! ============================================================================
+! Configuration by: Israr Sadaq (CCNA, CCNP)
+! Date: 2024
+! Al-Markaz Tower - Islamabad
+! ============================================================================

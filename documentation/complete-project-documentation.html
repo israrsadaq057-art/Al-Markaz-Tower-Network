@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Markaz Tower - Complete Project Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0f1a 0%, #0f172a 100%);
+            padding: 30px;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding: 30px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 24px;
+            border: 1px solid rgba(0,212,255,0.3);
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header .subtitle {
+            color: #94a3b8;
+            margin-top: 10px;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background: rgba(15,23,42,0.8);
+            border: 1px solid rgba(0,212,255,0.3);
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .tab-btn:hover {
+            background: rgba(0,212,255,0.2);
+            color: #00d4ff;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #00d4ff, #0284c7);
+            color: white;
+            border-color: #00d4ff;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(15,23,42,0.8);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0,212,255,0.2);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #00d4ff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid rgba(0,212,255,0.3);
+            padding-bottom: 10px;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 5px;
+            font-family: monospace;
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th, .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 12px;
+        }
+
+        .data-table th {
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        .data-table tr:hover {
+            background: rgba(0,212,255,0.05);
+        }
+
+        /* Status Badges */
+        .badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .badge-complete { background: #22c55e; color: black; }
+        .badge-pending { background: #eab308; color: black; }
+        .badge-planned { background: #3b82f6; color: white; }
+
+        /* Progress Bar */
+        .progress-bar {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            height: 8px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #00d4ff, #0284c7);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: #64748b;
+            font-size: 11px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 30px;
+        }
+
+        @media (max-width: 1000px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🏢 AL-MARKAZ TOWER - COMPLETE PROJECT DOCUMENTATION</h1>
+            <div class="subtitle">📍 Blue Area, Islamabad, Pakistan | FTTH + Security Network Infrastructure</div>
+            <div class="subtitle" style="margin-top: 5px;">👨‍💻 Network Engineer: Israr Sadaq | CCNA | CCNP | Berlin, Germany</div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('overview')">📋 Project Overview</button>
+            <button class="tab-btn" onclick="showTab('bill-of-materials')">🛠️ Bill of Materials</button>
+            <button class="tab-btn" onclick="showTab('cabling-schedule')">🔌 Cabling Schedule</button>
+            <button class="tab-btn" onclick="showTab('configurations')">⚙️ Device Configurations</button>
+            <button class="tab-btn" onclick="showTab('implementation-plan')">📅 Implementation Plan</button>
+            <button class="tab-btn" onclick="showTab('budget')">💰 Budget & Costing</button>
+            <button class="tab-btn" onclick="showTab('maintenance')">🔧 Maintenance</button>
+        </div>
+
+        <!-- Tab 1: Project Overview -->
+        <div id="overview" class="tab-content active">
+            <div class="card">
+                <div class="card-title">📋 PROJECT SUMMARY</div>
+                <div class="grid-2">
+                    <div class="info-box">
+                        <div class="info-label">Project Name</div>
+                        <div class="info-value">Al-Markaz Tower Network Infrastructure</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Location</div>
+                        <div class="info-value">Blue Area, Islamabad, Pakistan</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Building Type</div>
+                        <div class="info-value">Residential Tower (5 Floors + Basement)</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Total Apartments</div>
+                        <div class="info-value">20 (4 per floor)</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Estimated Residents</div>
+                        <div class="info-value">100+ People</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Project Status</div>
+                        <div class="info-value"><span class="badge badge-planned">Planning Phase</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🎯 PROJECT OBJECTIVES</div>
+                <div class="grid-2">
+                    <div class="info-box">
+                        <div class="info-label">Primary Goal</div>
+                        <div class="info-value">Deploy complete FTTH network for 20 apartments with 1Gbps capability</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Security Goal</div>
+                        <div class="info-value">24/7 surveillance with 24 x 4K cameras, 30-day retention</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Reliability Target</div>
+                        <div class="info-value">99.99% uptime with dual UPS + generator backup</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Future Expansion</div>
+                        <div class="info-value">Scalable to 32 apartments, 10Gbps ready</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🏗️ BUILDING STRUCTURE</div>
+                <div class="info-box">
+                    <div class="info-label">Floor Distribution</div>
+                    <div class="info-value">
+                        • Basement: Parking (40 cars) + MDF Room + Generator + UPS Room<br>
+                        • Floor 1: 4 Apartments + Security Guard Room + Community Hall + Reception<br>
+                        • Floor 2: 4 Apartments<br>
+                        • Floor 3: 4 Apartments<br>
+                        • Floor 4: 4 Apartments<br>
+                        • Floor 5: 4 Apartments + Rooftop Access
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Bill of Materials -->
+        <div id="bill-of-materials" class="tab-content">
+            <div class="card">
+                <div class="card-title">🛠️ COMPLETE BILL OF MATERIALS (BOM)</div>
+                
+                <h3 style="color: #00d4ff; margin: 20px 0 10px 0;">📡 FTTH Equipment</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Item</th><th>Model</th><th>Qty</th><th>Unit Price (USD)</th><th>Total (USD)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>GPON OLT</td><td>Nokia 7360 ISAM FX-8</td><td>1</td><td>$4,500</td><td>$4,500</td></tr>
+                        <tr><td>GPON ONT</td><td>Nokia G-240W-F</td><td>20</td><td>$85</td><td>$1,700</td></tr>
+                        <tr><td>1:32 Splitter</td><td>GPON PLC</td><td>2</td><td>$120</td><td>$240</td></tr>
+                        <tr><td>Fiber Distribution Panel</td><td>24-port SC/APC</td><td>2</td><td>$180</td><td>$360</td></tr>
+                        <tr><td>Fiber Patch Cords</td><td>SC/APC to SC/APC</td><td>40</td><td>$8</td><td>$320</td></tr>
+                        <tr><td>Fiber Optic Cable</td><td>24-core SMF</td><td>500m</td><td>$2.5/m</td><td>$1,250</td></tr>
+                    </tbody>
+                </table>
+
+                <h3 style="color: #00d4ff; margin: 20px 0 10px 0;">🔌 Network Equipment</h3>
+                <table class="data-table">
+                    <thead><tr><th>Item</th><th>Model</th><th>Qty</th><th>Unit Price (USD)</th><th>Total (USD)</th></tr></thead>
+                    <tbody>
+                        <tr><td>Firewall</td><td>Cisco Firepower 2130</td><td>1</td><td>$8,500</td><td>$8,500</td></tr>
+                        <tr><td>Core Switch</td><td>Cisco Catalyst 9300-48P</td><td>1</td><td>$12,000</td><td>$12,000</td></tr>
+                        <tr><td>Distribution Switch</td><td>Cisco Catalyst 9200-24P</td><td>5</td><td>$4,500</td><td>$22,500</td></tr>
+                        <tr><td>WiFi 6 Router (Per Apartment)</td><td>Cisco 9130AXI</td><td>20</td><td>$450</td><td>$9,000</td></tr>
+                        <tr><td>WiFi AP (Common Areas)</td><td>Cisco 9130AXI</td><td>6</td><td>$450</td><td>$2,700</td></tr>
+                        <tr><td>PoE Switch (Cameras)</td><td>Hikvision 24-port</td><td>2</td><td>$650</td><td>$1,300</td></tr>
+                        <tr><td>Cat6 UTP Cable</td><td>305m box</td><td>15</td><td>$120</td><td>$1,800</td></tr>
+                        <tr><td>Patch Panels</td><td>24-port Cat6</td><td>6</td><td>$85</td><td>$510</td></tr>
+                        <tr><td>Network Racks</td><td>42U Server Rack</td><td>2</td><td>$800</td><td>$1,600</td></tr>
+                    </tbody>
+                </table>
+
+                <h3 style="color: #00d4ff; margin: 20px 0 10px 0;">📷 Security Equipment</h3>
+                <table class="data-table">
+                    <thead><tr><th>Item</th><th>Model</th><th>Qty</th><th>Unit Price (USD)</th><th>Total (USD)</th></tr></thead>
+                    <tbody>
+                        <tr><td>NVR</td><td>Hikvision 64-Channel</td><td>1</td><td>$2,200</td><td>$2,200</td></tr>
+                        <tr><td>4K Dome Camera</td><td>Hikvision DS-2CD2386G2</td><td>20</td><td>$180</td><td>$3,600</td></tr>
+                        <tr><td>4K Bullet Camera</td><td>Hikvision DS-2CD2T86G2</td><td>4</td><td>$195</td><td>$780</td></tr>
+                        <tr><td>8TB HDD</td><td>WD Purple</td><td>8</td><td>$220</td><td>$1,760</td></tr>
+                        <tr><td>Camera Mounts</td><td>Wall/Ceiling Mount</td><td>24</td><td>$15</td><td>$360</td></tr>
+                        <tr><td>Monitor</td><td>27" 4K Security Monitor</td><td>2</td><td>$350</td><td>$700</td></tr>
+                    </tbody>
+                </table>
+
+                <h3 style="color: #00d4ff; margin: 20px 0 10px 0;">⚡ Power Backup</h3>
+                <table class="data-table">
+                    <thead><tr><th>Item</th><th>Model</th><th>Qty</th><th>Unit Price (USD)</th><th>Total (USD)</th></tr></thead>
+                    <tbody>
+                        <tr><td>UPS</td><td>APC 6kVA</td><td>2</td><td>$2,800</td><td>$5,600</td></tr>
+                        <tr><td>Generator</td><td>20kVA Diesel</td><td>1</td><td>$8,500</td><td>$8,500</td></tr>
+                        <tr><td>ATS Panel</td><td>Automatic Transfer Switch</td><td>1</td><td>$1,200</td><td>$1,200</td></tr>
+                        <tr><td>Battery Bank</td><td>APC Battery Pack</td><td>4</td><td>$650</td><td>$2,600</td></tr>
+                    </tbody>
+                </table>
+
+                <h3 style="color: #00d4ff; margin: 20px 0 10px 0;">💰 TOTAL EQUIPMENT COST</h3>
+                <table class="data-table">
+                    <thead><tr><th>Category</th><th>Total (USD)</th><th>Total (PKR)</th></tr></thead>
+                    <tbody>
+                        <tr><td>FTTH Equipment</td><td>$8,370</td><td>₨ 2,343,600</td></tr>
+                        <tr><td>Network Equipment</td><td>$59,410</td><td>₨ 16,634,800</td></tr>
+                        <tr><td>Security Equipment</td><td>$9,400</td><td>₨ 2,632,000</td></tr>
+                        <tr><td>Power Backup</td><td>$17,900</td><td>₨ 5,012,000</td></tr>
+                        <tr><td style="font-weight: bold;">GRAND TOTAL</td><td style="font-weight: bold;">$95,080</td><td style="font-weight: bold;">₨ 26,622,400</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 3: Cabling Schedule -->
+        <div id="cabling-schedule" class="tab-content">
+            <div class="card">
+                <div class="card-title">🔌 COMPLETE CABLING SCHEDULE</div>
+                
+                <h3 style="color: #00d4ff; margin: 20px 0 10px 0;">📡 Fiber Optic Cabling</h3>
+                <table class="data-table">
+                    <thead><tr><th>From</th><th>To</th><th>Cable Type</th><th>Distance</th><th>Core Count</th></tr></thead>
+                    <tbody>
+                        <tr><td>ISP Termination Point</td><td>MDF Room (OLT)</td><td>Single-mode OS2</td><td>10m</td><td>12</td></tr>
+                        <tr><td>OLT</td><td>1:32 Splitter</td><td>Single-mode OS2</td><td>2m</td><td>8</td></tr>
+                        <tr><td>Splitter</td><td>Floor 1 Distribution</td><td>Single-mode OS2</td><td>15m</td><td>8</td></tr>
+                        <tr><td>Splitter</td><td>Floor 2 Distribution</td><td>Single-mode OS2</td><td>20m</td><td>8</td></tr>
+                        <tr><td>Splitter</td><td>Floor 3 Distribution</td><td>Single-mode OS2</td><td>25m</td><td>8</td></tr>
+                        <tr><td>Splitter</td><td>Floor 4 Distribution</td><td>Single-mode OS2</td><td>30m</td><td>8</td></tr>
+                        <tr><td>Splitter</td><td>Floor 5 Distribution</td><td>Single-mode OS2</td><td>35m</td><td>8</td></tr>
+                        <tr><td>Floor Distribution Box</td><td>Each Apartment ONT</td><td>Single-mode OS2</td><td>10-20m each</td><td>1 per apt</td></tr>
+                    </tbody>
+                </table>
+
+                <h3 style="color: #00d4ff; margin: 20px 0 10px 0;">🔌 Cat6 Ethernet Cabling</h3>
+                <table class="data-table">
+                    <thead><tr><th>From</th><th>To</th><th>Purpose</th><th>Length</th></tr></thead>
+                    <tbody>
+                        <tr><td>ONT</td><td>WiFi Router (per apt)</td><td>Internet to Router</td><td>2m each</td></tr>
+                        <tr><td>Router LAN Port</td><td>Living Room Wall Plate</td><td>TV/Media</td><td>5-10m</td></tr>
+                        <tr><td>Router LAN Port</td><td>Master Bedroom Wall Plate</td><td>PC/Laptop</td><td>5-10m</td></tr>
+                        <tr><td>Router LAN Port</td><td>Bedroom 2 Wall Plate</td><td>Guest/Office</td><td>5-10m</td></tr>
+                        <tr><td>Router LAN Port</td><td>Bedroom 3 Wall Plate</td><td>Study/Child</td><td>5-10m</td></tr>
+                        <tr><td>PoE Switch</td><td>Each Camera</td><td>Power + Data</td><td>10-50m each</td></tr>
+                        <tr><td>Core Switch</td><td>Distribution Switches</td><td>Floor Uplinks</td><td>15-40m each</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📋 APARTMENT CABLING PER UNIT (20 Apartments)</div>
+                <table class="data-table">
+                    <thead><tr><th>Cable</th><th>Type</th><th>Length</th><th>Termination</th></tr></thead>
+                    <tbody>
+                        <tr><td>Fiber to ONT</td><td>SM OS2</td><td>10-20m</td><td>SC/APC</td></tr>
+                        <tr><td>ONT to Router</td><td>Cat6</td><td>2m</td><td>RJ45</td></tr>
+                        <tr><td>Living Room Drop</td><td>Cat6</td><td>8m</td><td>RJ45 Keystone</td></tr>
+                        <tr><td>Master Bedroom Drop</td><td>Cat6</td><td>10m</td><td>RJ45 Keystone</td></tr>
+                        <tr><td>Bedroom 2 Drop</td><td>Cat6</td><td>12m</td><td>RJ45 Keystone</td></tr>
+                        <tr><td>Bedroom 3 Drop</td><td>Cat6</td><td>15m</td><td>RJ45 Keystone</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 4: Device Configurations -->
+        <div id="configurations" class="tab-content">
+            <div class="card">
+                <div class="card-title">⚙️ CISCO FIREWALL CONFIGURATION (Firepower 2130)</div>
+                <div class="info-box">
+                    <pre style="background: #0a0f1a; padding: 15px; border-radius: 10px; overflow-x: auto; font-size: 11px; font-family: monospace; color: #22c55e;">
+! Basic Firewall Configuration
+configure terminal
+hostname ALMARKAZ-FW
+!
+! Interface Configuration
+interface GigabitEthernet0/0
+ nameif outside
+ security-level 0
+ ip address 203.0.113.2 255.255.255.252
+!
+interface GigabitEthernet0/1
+ nameif inside
+ security-level 100
+ ip address 10.10.10.1 255.255.255.0
+!
+! NAT Configuration
+nat (inside,outside) source dynamic any interface
+!
+! DHCP for Management VLAN
+dhcpd address 10.10.10.100-10.10.10.200 inside
+dhcpd enable inside
+!
+! Access Rules
+access-list outside_access_in extended permit tcp any host 203.0.113.2 eq 443
+access-group outside_access_in in interface outside
+!
+! VLAN Sub-interfaces
+interface GigabitEthernet0/1.10
+ vlan 10
+ nameif management
+ ip address 10.10.10.1 255.255.255.0
+!
+interface GigabitEthernet0/1.20
+ vlan 20
+ nameif cctv
+ ip address 10.10.20.1 255.255.255.0
+!
+interface GigabitEthernet0/1.30
+ vlan 30
+ nameif wifi-common
+ ip address 10.10.30.1 255.255.255.0
+!
+interface GigabitEthernet0/1.40
+ vlan 40
+ nameif apartments
+ ip address 10.10.40.1 255.255.248.0
+!
+interface GigabitEthernet0/1.50
+ vlan 50
+ nameif voip
+ ip address 10.10.50.1 255.255.255.0
+!
+interface GigabitEthernet0/1.60
+ vlan 60
+ nameif nvr
+ ip address 10.10.60.1 255.255.255.0
+!
+! Save Configuration
+write memory
+                    </pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">⚙️ CORE SWITCH CONFIGURATION (Catalyst 9300)</div>
+                <div class="info-box">
+                    <pre style="background: #0a0f1a; padding: 15px; border-radius: 10px; overflow-x: auto; font-size: 11px; font-family: monospace; color: #22c55e;">
+! Core Switch Configuration
+configure terminal
+hostname ALMARKAZ-CORE-SW
+!
+! VLAN Creation
+vlan 10
+ name Management
+vlan 20
+ name CCTV
+vlan 30
+ name WiFi-Common
+vlan 40
+ name Apartments
+vlan 50
+ name VoIP
+vlan 60
+ name NVR
+!
+! VLAN Interfaces (SVI)
+interface vlan 10
+ ip address 10.10.10.2 255.255.255.0
+!
+interface vlan 20
+ ip address 10.10.20.1 255.255.255.0
+!
+interface vlan 30
+ ip address 10.10.30.1 255.255.255.0
+!
+interface vlan 40
+ ip address 10.10.40.1 255.255.248.0
+!
+interface vlan 50
+ ip address 10.10.50.1 255.255.255.0
+!
+interface vlan 60
+ ip address 10.10.60.1 255.255.255.0
+!
+! Trunk Ports to Distribution Switches
+interface range gigabitethernet1/0/1-5
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,50,60
+ spanning-tree portfast trunk
+!
+! Uplink to Firewall
+interface gigabitethernet1/0/48
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,50,60
+!
+! Default Route
+ip route 0.0.0.0 0.0.0.0 10.10.10.1
+!
+! Save
+write memory
+                    </pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">⚙️ APARTMENT ROUTER CONFIGURATION (Cisco 9130AXI)</div>
+                <div class="info-box">
+                    <pre style="background: #0a0f1a; padding: 15px; border-radius: 10px; overflow-x: auto; font-size: 11px; font-family: monospace; color: #22c55e;">
+! Per Apartment Router Configuration (Example: Apartment 5A)
+configure terminal
+hostname APT-5A-ROUTER
+!
+! WAN Interface (from ONT)
+interface gigabitethernet0/0
+ description WAN-ONT
+ ip address dhcp
+!
+! LAN Interface
+interface gigabitethernet0/1
+ description LAN-Switch
+ ip address 192.168.5.1 255.255.255.0
+ no shutdown
+!
+! DHCP Server for Apartment
+ip dhcp pool APT-5A-POOL
+ network 192.168.5.0 255.255.255.0
+ default-router 192.168.5.1
+ dns-server 8.8.8.8 8.8.4.4
+ lease 7
+!
+! NAT Configuration
+ip nat inside source list 1 interface gigabitethernet0/0 overload
+access-list 1 permit 192.168.5.0 0.0.0.255
+!
+! WiFi Configuration
+dot11 ssid ALMARKAZ-5A
+ authentication open
+ authentication key-management wpa version 2
+ guest-mode
+ wpa-psk ascii 0 Secure@2024
+!
+interface dot11radio0
+ ssid ALMARKAZ-5A
+!
+! Save
+write memory
+                    </pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">⚙️ OLT CONFIGURATION (Nokia 7360)</div>
+                <div class="info-box">
+                    <pre style="background: #0a0f1a; padding: 15px; border-radius: 10px; overflow-x: auto; font-size: 11px; font-family: monospace; color: #22c55e;">
+! Nokia 7360 OLT Configuration
+configure
+!
+! Create PON Interface
+interface pon1/1/1
+ description "PON Port for Floors 1-2"
+!
+! Configure ONT Profiles
+ont-profile "APARTMENT-ONT"
+ description "Standard Apartment ONT Profile"
+ downstream-bandwidth 1000000
+ upstream-bandwidth 500000
+!
+! Register ONTs (Example for Apartment 5A)
+ont add pon1/1/1 1 serial-number ALCLF10017
+ont profile assign pon1/1/1 1 APARTMENT-ONT
+!
+! VLAN Configuration for ONT
+ont vlan add pon1/1/1 1 vlan-id 40
+!
+! Assign IP to ONT Management
+ont ipconfig pon1/1/1 1 ip-address 10.10.10.117 mask 255.255.255.0 gateway 10.10.10.1
+!
+! Save Configuration
+save
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 5: Implementation Plan -->
+        <div id="implementation-plan" class="tab-content">
+            <div class="card">
+                <div class="card-title">📅 IMPLEMENTATION TIMELINE</div>
+                
+                <div class="info-box">
+                    <div class="info-label">Phase 1: Planning & Design (Week 1)</div>
+                    <div class="progress-bar" style="margin: 10px 0;"><div class="progress-fill" style="width: 100%;"></div></div>
+                    <div class="info-value">✅ Site Survey Completed | ✅ Network Design Finalized | ✅ Equipment Procurement Initiated</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">Phase 2: Infrastructure Setup (Week 2-3)</div>
+                    <div class="progress-bar" style="margin: 10px 0;"><div class="progress-fill" style="width: 30%;"></div></div>
+                    <div class="info-value">🔄 MDF Room Preparation | 🔄 Cable Trays Installation | 🔄 Fiber Optic Cabling</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">Phase 3: Equipment Installation (Week 4-5)</div>
+                    <div class="progress-bar" style="margin: 10px 0;"><div class="progress-fill" style="width: 0%;"></div></div>
+                    <div class="info-value">⏳ OLT & Switch Installation | ⏳ ONT Installation per Apartment | ⏳ Router Setup</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">Phase 4: Camera Installation (Week 6)</div>
+                    <div class="progress-bar" style="margin: 10px 0;"><div class="progress-fill" style="width: 0%;"></div></div>
+                    <div class="info-value">⏳ 24 Camera Mounting | ⏳ NVR Configuration | ⏳ Recording Setup</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">Phase 5: Testing & Commissioning (Week 7)</div>
+                    <div class="progress-bar" style="margin: 10px 0;"><div class="progress-fill" style="width: 0%;"></div></div>
+                    <div class="info-value">⏳ Connectivity Testing | ⏳ Speed Tests | ⏳ Security System Validation</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">Phase 6: Training & Handover (Week 8)</div>
+                    <div class="progress-bar" style="margin: 10px 0;"><div class="progress-fill" style="width: 0%;"></div></div>
+                    <div class="info-value">⏳ Security Guard Training | ⏳ Resident Orientation | ⏳ Documentation Handover</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">👥 TEAM STRUCTURE</div>
+                <table class="data-table">
+                    <thead><tr><th>Role</th><th>Name/Position</th><th>Responsibilities</th></tr></thead>
+                    <tbody>
+                        <tr><td>Project Manager</td><td>TBD</td><td>Overall project coordination, timeline management</td></tr>
+                        <tr><td>Network Architect</td><td>Israr Sadaq (CCNP)</td><td>Network design, equipment selection, configuration</td></tr>
+                        <tr><td>Fiber Optic Engineer</td><td>TBD</td><td>Fiber cabling, splicing, OLT configuration</td></tr>
+                        <tr><td>Security System Engineer</td><td>TBD</td><td>Camera installation, NVR configuration</td></tr>
+                        <tr><td>Electrician</td><td>TBD</td><td>Power backup, UPS, generator installation</td></tr>
+                        <tr><td>Technicians</td><td>4 People</td><td>Cable pulling, device mounting, testing</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 6: Budget & Costing -->
+        <div id="budget" class="tab-content">
+            <div class="card">
+                <div class="card-title">💰 COMPLETE BUDGET BREAKDOWN</div>
+                
+                <h3 style="color: #00d4ff; margin: 20px 0 10px 0;">Equipment Cost (USD)</h3>
+                <table class="data-table">
+                    <thead><tr><th>Category</th><th>Cost (USD)</th><th>Cost (PKR)</th></tr></thead>
+                    <tbody>
+                        <tr><td>FTTH Equipment</td><td>$8,370</td><td>₨ 2,343,600</td></tr>
+                        <tr><td>Network Equipment</td><td>$59,410</td><td>₨ 16,634,800</td></tr>
+                        <tr><td>Security Equipment</td><td>$9,400</td><td>₨ 2,632,000</td></tr>
+                        <tr><td>Power Backup</td><td>$17,900</td><td>₨ 5,012,000</td></tr>
+                        <tr style="font-weight: bold;"><td>Equipment Subtotal</td><td>$95,080</td><td>₨ 26,622,400</td></tr>
+                    </tbody>
+                </table>
+
+                <h3 style="color: #00d4ff; margin: 20px 0 10px 0;">Labor & Services Cost</h3>
+                <table class="data-table">
+                    <thead><tr><th>Service</th><th>Cost (USD)</th><th>Cost (PKR)</th></tr></thead>
+                    <tbody>
+                        <tr><td>Fiber Optic Splicing & Termination</td><td>$2,500</td><td>₨ 700,000</td></tr>
+                        <tr><td>Cable Pulling & Installation</td><td>$3,500</td><td>₨ 980,000</td></tr>
+                        <tr><td>Equipment Installation & Configuration</td><td>$4,000</td><td>₨ 1,120,000</td></tr>
+                        <tr><td>Testing & Commissioning</td><td>$1,500</td><td>₨ 420,000</td></tr>
+                        <tr><td>Project Management</td><td>$2,500</td><td>₨ 700,000</td></tr>
+                        <tr><td>Training & Documentation</td><td>$1,000</td><td>₨ 280,000</td></tr>
+                        <tr style="font-weight: bold;"><td>Labor Subtotal</td><td>$15,000</td><td>₨ 4,200,000</td></tr>
+                    </tbody>
+                </table>
+
+                <h3 style="color: #00d4ff; margin: 20px 0 10px 0;">Total Project Cost</h3>
+                <table class="data-table">
+                    <thead><tr><th>Category</th><th>Cost (USD)</th><th>Cost (PKR)</th></tr></thead>
+                    <tbody>
+                        <tr><td>Equipment</td><td>$95,080</td><td>₨ 26,622,400</td></tr>
+                        <tr><td>Labor & Services</td><td>$15,000</td><td>₨ 4,200,000</td></tr>
+                        <tr><td>Contingency (10%)</td><td>$11,008</td><td>₨ 3,082,240</td></tr>
+                        <tr style="font-weight: bold; font-size: 16px;"><td>GRAND TOTAL</td><td>$121,088</td><td>₨ 33,904,640</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📊 MONTHLY OPERATIONAL COSTS</div>
+                <table class="data-table">
+                    <thead><tr><th>Item</th><th>Cost (USD)</th><th>Cost (PKR)</th></tr></thead>
+                    <tbody>
+                        <tr><td>ISP Bandwidth (1 Gbps)</td><td>$500</td><td>₨ 140,000</td></tr>
+                        <tr><td>Electricity (Equipment + Cameras)</td><td>$300</td><td>₨ 84,000</td></tr>
+                        <tr><td>Maintenance Contract</td><td>$400</td><td>₨ 112,000</td></tr>
+                        <tr><td>Security Guard (24/7)</td><td>$600</td><td>₨ 168,000</td></tr>
+                        <tr><td>Generator Fuel</td><td>$150</td><td>₨ 42,000</td></tr>
+                        <tr style="font-weight: bold;"><td>Total Monthly</td><td>$1,950</td><td>₨ 546,000</td></tr>
+                        <tr><td>Annual Total</td><td>$23,400</td><td>₨ 6,552,000</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 7: Maintenance -->
+        <div id="maintenance" class="tab-content">
+            <div class="card">
+                <div class="card-title">🔧 PREVENTIVE MAINTENANCE SCHEDULE</div>
+                
+                <h3 style="color: #00d4ff; margin: 20px 0 10px 0;">Daily Checks</h3>
+                <div class="info-box">
+                    <div class="info-value">✅ Check NVR recording status<br>✅ Verify all cameras are online<br>✅ Check UPS status lights<br>✅ Review security log for any anomalies</div>
+                </div>
+
+                <h3 style="color: #00d4ff; margin: 20px 0 10px 0;">Weekly Checks</h3>
+                <div class="info-box">
+                    <div class="info-value">🔄 Reboot NVR if needed<br>🔄 Check storage utilization (maintain 30-day retention)<br>🔄 Test generator startup (5 min run)<br>🔄 Verify all switches are operational</div>
+                </div>
+
+                <h3 style="color: #00d4ff; margin: 20px 0 10px 0;">Monthly Checks</h3>
+                <div class="info-box">
+                    <div class="info-value">📋 Clean camera lenses and housings<br>📋 Check fiber optic connections (power levels)<br>📋 Review backup logs<br>📋 Update firewall rules<br>📋 Test all emergency systems</div>
+                </div>
+
+                <h3 style="color: #00d4ff; margin: 20px 0 10px 0;">Quarterly Checks</h3>
+                <div class="info-box">
+                    <div class="info-value">🔧 Full generator load test (30 min)<br>🔧 Battery health check on UPS<br>🔧 Firmware updates on all network devices<br>🔧 Cable management inspection<br>🔧 Security audit</div>
+                </div>
+
+                <h3 style="color: #00d4ff; margin: 20px 0 10px 0;">Annual Checks</h3>
+                <div class="info-box">
+                    <div class="info-value">🏆 Full system performance assessment<br>🏆 Replace UPS batteries (every 3-5 years)<br>🏆 Re-certify fiber optic links<br>🏆 Review and update disaster recovery plan<br>🏆 Staff training refresh</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🚨 TROUBLESHOOTING GUIDE</div>
+                <table class="data-table">
+                    <thead><tr><th>Issue</th><th>Possible Cause</th><th>Solution</th></tr></thead>
+                    <tbody>
+                        <tr><td>No Internet in Apartment</td><td>ONT power issue / Fiber cut</td><td>Check ONT power light (green), call NOC</td></tr>
+                        <tr><td>Slow WiFi</td><td>Interference / Too many devices</td><td>Change channel, upgrade bandwidth</td></tr>
+                        <tr><td>Camera Offline</td><td>PoE issue / Cable damage</td><td>Check PoE switch port, reboot camera</td></tr>
+                        <tr><td>NVR No Recording</td><td>HDD full / NVR frozen</td><td>Check storage, reboot NVR</td></tr>
+                        <tr><td>UPS Beeping</td><td>Battery low / Overload</td><td>Check load, test batteries</td></tr>
+                        <tr><td>Generator Not Starting</td><td>Fuel empty / Battery dead</td><td>Check fuel level, charge battery</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📞 EMERGENCY CONTACTS</div>
+                <table class="data-table">
+                    <thead><tr><th>Contact</th><th>Phone</th><th>Email</th></tr></thead>
+                    <tbody>
+                        <tr><td>Network Engineer (Israr Sadaq)</td><td>+49 123 456 789</td><td>israr@network-engineer.com</td></tr>
+                        <tr><td>ISP Support (PTCL)</td><td>0800-80800</td><td>support@ptcl.net.pk</td></tr>
+                        <tr><td>Security System Support</td><td>+92 51 1234567</td><td>security@almarkaz.com</td></tr>
+                        <tr><td>Generator Service</td><td>+92 300 1234567</td><td>service@generator.pk</td></tr>
+                        <tr><td>Emergency (Fire/Medical)</td><td>15 / 1122</td><td>-</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🏢 Al-Markaz Tower - Blue Area, Islamabad, Pakistan | Complete Project Documentation</p>
+            <p>📅 Document Version: 1.0 | Last Updated: 2024 | Network Engineer: Israr Sadaq (CCNA, CCNP)</p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

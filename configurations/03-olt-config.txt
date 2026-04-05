@@ -1,0 +1,215 @@
+! ============================================================================
+! AL-MARKAZ TOWER - ISLAMABAD
+! OLT: Nokia 7360 ISAM FX-8 (GPON)
+! Hostname: ALMARKAZ-OLT
+! Management IP: 10.10.10.3
+! Date: 2024
+! Engineer: Israr Sadaq (CCNP)
+! ============================================================================
+
+configure
+!
+! ============================== SYSTEM SETTINGS ==============================
+!
+system
+    name "ALMARKAZ-OLT"
+    location "Basement MDF - Al-Markaz Tower, Islamabad"
+    contact "Israr Sadaq - +49 123 456 789"
+    timezone +5
+!
+! ============================== PON INTERFACE CONFIGURATION ==============================
+!
+! PON Port 1/1/1 - Floors 1 & 2 (8 Apartments)
+interface pon1/1/1
+    description "PON PORT 1 - APARTMENTS 1A TO 2D"
+    admin-state enable
+   !
+    ont 1 serial-number ALCLF10001
+        description "Apartment 1A - Nokia ONT"
+        admin-state enable
+    !
+    ont 2 serial-number ALCLF10002
+        description "Apartment 1B - Nokia ONT"
+        admin-state enable
+    !
+    ont 3 serial-number ALCLF10003
+        description "Apartment 1C - Nokia ONT"
+        admin-state enable
+    !
+    ont 4 serial-number ALCLF10004
+        description "Apartment 1D - Nokia ONT"
+        admin-state enable
+    !
+    ont 5 serial-number ALCLF10005
+        description "Apartment 2A - Nokia ONT"
+        admin-state enable
+    !
+    ont 6 serial-number ALCLF10006
+        description "Apartment 2B - Nokia ONT"
+        admin-state enable
+    !
+    ont 7 serial-number ALCLF10007
+        description "Apartment 2C - Nokia ONT"
+        admin-state enable
+    !
+    ont 8 serial-number ALCLF10008
+        description "Apartment 2D - Nokia ONT"
+        admin-state enable
+    !
+!
+! PON Port 1/1/2 - Floors 3 & 4 (8 Apartments)
+interface pon1/1/2
+    description "PON PORT 2 - APARTMENTS 3A TO 4D"
+    admin-state enable
+    !
+    ont 1 serial-number ALCLF10009
+        description "Apartment 3A - Nokia ONT"
+        admin-state enable
+    !
+    ont 2 serial-number ALCLF10010
+        description "Apartment 3B - Nokia ONT"
+        admin-state enable
+    !
+    ont 3 serial-number ALCLF10011
+        description "Apartment 3C - Nokia ONT"
+        admin-state enable
+    !
+    ont 4 serial-number ALCLF10012
+        description "Apartment 3D - Nokia ONT"
+        admin-state enable
+    !
+    ont 5 serial-number ALCLF10013
+        description "Apartment 4A - Nokia ONT"
+        admin-state enable
+    !
+    ont 6 serial-number ALCLF10014
+        description "Apartment 4B - Nokia ONT"
+        admin-state enable
+    !
+    ont 7 serial-number ALCLF10015
+        description "Apartment 4C - Nokia ONT"
+        admin-state enable
+    !
+    ont 8 serial-number ALCLF10016
+        description "Apartment 4D - Nokia ONT"
+        admin-state enable
+    !
+!
+! PON Port 1/1/3 - Floor 5 (4 Apartments)
+interface pon1/1/3
+    description "PON PORT 3 - APARTMENTS 5A TO 5D"
+    admin-state enable
+    !
+    ont 1 serial-number ALCLF10017
+        description "Apartment 5A - Nokia ONT"
+        admin-state enable
+    !
+    ont 2 serial-number ALCLF10018
+        description "Apartment 5B - Nokia ONT"
+        admin-state enable
+    !
+    ont 3 serial-number ALCLF10019
+        description "Apartment 5C - Nokia ONT"
+        admin-state enable
+    !
+    ont 4 serial-number ALCLF10020
+        description "Apartment 5D - Nokia ONT"
+        admin-state enable
+    !
+!
+! ============================== ONT PROFILES ==============================
+!
+ont-profile "APARTMENT-1GBPS"
+    description "1 Gbps symmetrical for premium apartments"
+    downstream-bandwidth 1000000
+    upstream-bandwidth 1000000
+    vlan-mode tag-all
+!
+ont-profile "APARTMENT-500MBPS"
+    description "500 Mbps symmetrical for standard apartments"
+    downstream-bandwidth 500000
+    upstream-bandwidth 500000
+    vlan-mode tag-all
+!
+ont-profile "APARTMENT-250MBPS"
+    description "250 Mbps symmetrical for basic apartments"
+    downstream-bandwidth 250000
+    upstream-bandwidth 250000
+    vlan-mode tag-all
+!
+! ============================== APPLY PROFILES TO ONTS ==============================
+!
+! Apply 1Gbps profile to all apartments
+configure pon1/1/1 ont 1-8 profile "APARTMENT-1GBPS"
+configure pon1/1/2 ont 1-8 profile "APARTMENT-1GBPS"
+configure pon1/1/3 ont 1-4 profile "APARTMENT-1GBPS"
+!
+! ============================== VLAN ASSIGNMENT FOR ONTS ==============================
+!
+! Assign VLAN 40 (Apartments) to all ONTs
+configure pon1/1/1 ont 1-8 vlan 40
+configure pon1/1/2 ont 1-8 vlan 40
+configure pon1/1/3 ont 1-4 vlan 40
+!
+! ============================== ONT MANAGEMENT IP ASSIGNMENT ==============================
+!
+! VLAN 10 Management IPs for each ONT
+configure pon1/1/1 ont 1 mgmt-ip 10.10.10.101/24
+configure pon1/1/1 ont 2 mgmt-ip 10.10.10.102/24
+configure pon1/1/1 ont 3 mgmt-ip 10.10.10.103/24
+configure pon1/1/1 ont 4 mgmt-ip 10.10.10.104/24
+configure pon1/1/1 ont 5 mgmt-ip 10.10.10.105/24
+configure pon1/1/1 ont 6 mgmt-ip 10.10.10.106/24
+configure pon1/1/1 ont 7 mgmt-ip 10.10.10.107/24
+configure pon1/1/1 ont 8 mgmt-ip 10.10.10.108/24
+!
+configure pon1/1/2 ont 1 mgmt-ip 10.10.10.109/24
+configure pon1/1/2 ont 2 mgmt-ip 10.10.10.110/24
+configure pon1/1/2 ont 3 mgmt-ip 10.10.10.111/24
+configure pon1/1/2 ont 4 mgmt-ip 10.10.10.112/24
+configure pon1/1/2 ont 5 mgmt-ip 10.10.10.113/24
+configure pon1/1/2 ont 6 mgmt-ip 10.10.10.114/24
+configure pon1/1/2 ont 7 mgmt-ip 10.10.10.115/24
+configure pon1/1/2 ont 8 mgmt-ip 10.10.10.116/24
+!
+configure pon1/1/3 ont 1 mgmt-ip 10.10.10.117/24
+configure pon1/1/3 ont 2 mgmt-ip 10.10.10.118/24
+configure pon1/1/3 ont 3 mgmt-ip 10.10.10.119/24
+configure pon1/1/3 ont 4 mgmt-ip 10.10.10.120/24
+!
+! ============================== OMCI CONFIGURATION ==============================
+!
+omci
+    ont-software-download "https://10.10.10.50/firmware/nokia-ont.bin"
+    schedule-software-upgrade daily 03:00
+!
+! ============================== QoS CONFIGURATION ==============================
+!
+qos
+    traffic-class 1 name "Voice"
+        priority 7
+    !
+    traffic-class 2 name "Video"
+        priority 6
+    !
+    traffic-class 3 name "Data"
+        priority 4
+    !
+    traffic-class 4 name "Best Effort"
+        priority 2
+!
+! ============================== SAVE CONFIGURATION ==============================
+!
+save
+copy running-config startup-config
+!
+! ============================== VERIFICATION COMMANDS ==============================
+! show pon ont status
+! show pon ont optical
+! show pon ont bandwidth
+! show pon ont ip
+! ============================================================================
+! Configuration by: Israr Sadaq (CCNA, CCNP)
+! Date: 2024
+! Al-Markaz Tower - Islamabad
+! ============================================================================

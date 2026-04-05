@@ -1,0 +1,41 @@
+Device ID,Device Type,Model,Serial Number,Location,IP Address,VLAN,Purchase Date,Warranty Status,Status
+CORE-FW-01,Firewall,Cisco Firepower 2130,FP2130-ISB-001,Basement MDF Rack U01,10.10.10.1,10,2024-03-01,Active,Online
+CORE-SW-01,Core Switch,Cisco Catalyst 9300-48P,9300-ISB-002,Basement MDF Rack U05,10.10.10.2,10,2024-03-01,Active,Online
+OLT-01,GPON OLT,Nokia 7360 ISAM FX-8,7360-ISB-003,Basement MDF Rack U10,10.10.10.3,10,2024-03-01,Active,Online
+NVR-01,NVR Server,Hikvision 64-Channel,DS9632-ISB-004,Basement MDF Rack U15,10.10.60.2,60,2024-03-01,Active,Online
+POE-SW-01,PoE Switch,Hikvision 24-Port,POE-ISB-005,Basement MDF Rack U20,10.10.10.4,10,2024-03-01,Active,Online
+POE-SW-02,PoE Switch,Hikvision 24-Port,POE-ISB-006,Basement MDF Rack U21,10.10.10.5,10,2024-03-01,Active,Online
+UPS-01,Uninterruptible Power Supply,APC 6kVA,APC-ISB-007,Basement Power Rack,10.10.10.201,10,2024-03-01,Active,Online
+UPS-02,Uninterruptible Power Supply,APC 6kVA,APC-ISB-008,Basement Power Rack,10.10.10.202,10,2024-03-01,Active,Online
+GEN-01,Diesel Generator,20kVA,DG-ISB-009,Basement Generator Room,10.10.10.203,10,2024-03-01,Active,Standby
+SW-F1-01,Distribution Switch,Cisco Catalyst 9200-24P,9200-F1-010,Floor 1 Comms Rack,10.10.10.11,10,2024-03-01,Active,Online
+SW-F2-01,Distribution Switch,Cisco Catalyst 9200-24P,9200-F2-011,Floor 2 Comms Rack,10.10.10.12,10,2024-03-01,Active,Online
+SW-F3-01,Distribution Switch,Cisco Catalyst 9200-24P,9200-F3-012,Floor 3 Comms Rack,10.10.10.13,10,2024-03-01,Active,Online
+SW-F4-01,Distribution Switch,Cisco Catalyst 9200-24P,9200-F4-013,Floor 4 Comms Rack,10.10.10.14,10,2024-03-01,Active,Online
+SW-F5-01,Distribution Switch,Cisco Catalyst 9200-24P,9200-F5-014,Floor 5 Comms Rack,10.10.10.15,10,2024-03-01,Active,Online
+AP-COMM-01,Access Point,Cisco 9130AXI,9130-AP01,Community Hall,10.10.30.2,30,2024-03-01,Active,Online
+AP-COMM-02,Access Point,Cisco 9130AXI,9130-AP02,Reception Area,10.10.30.3,30,2024-03-01,Active,Online
+AP-COMM-03,Access Point,Cisco 9130AXI,9130-AP03,Main Lobby,10.10.30.4,30,2024-03-01,Active,Online
+AP-COMM-04,Access Point,Cisco 9130AXI,9130-AP04,Basement Parking,10.10.30.5,30,2024-03-01,Active,Online
+AP-COMM-05,Access Point,Cisco 9130AXI,9130-AP05,Rooftop Terrace,10.10.30.6,30,2024-03-01,Active,Online
+AP-COMM-06,Access Point,Cisco 9130AXI,9130-AP06,MDF Room,10.10.30.7,30,2024-03-01,Active,Online
+CAM-01,Security Camera,Hikvision DS-2CD2T86G2,CAM-ISB-001,Basement Entry Ramp,10.10.20.11,20,2024-03-01,Active,Online
+CAM-02,Security Camera,Hikvision DS-2CD2T86G2,CAM-ISB-002,Basement Exit Ramp,10.10.20.12,20,2024-03-01,Active,Online
+CAM-03,Security Camera,Hikvision DS-2CD2386G2,CAM-ISB-003,Parking Row A,10.10.20.13,20,2024-03-01,Active,Online
+CAM-04,Security Camera,Hikvision DS-2CD2386G2,CAM-ISB-004,Parking Row B,10.10.20.14,20,2024-03-01,Active,Online
+CAM-05,Security Camera,Hikvision DS-2CD2386G2,CAM-ISB-005,Parking Row C,10.10.20.15,20,2024-03-01,Active,Online
+CAM-06,Security Camera,Hikvision DS-2CD2386G2,CAM-ISB-006,MDF Room Door,10.10.20.16,20,2024-03-01,Active,Online
+CAM-07,Security Camera,Hikvision DS-2CD2T86G2,CAM-ISB-007,Main Entrance,10.10.20.21,20,2024-03-01,Active,Online
+CAM-08,Security Camera,Hikvision DS-2CD2386G2,CAM-ISB-008,Reception Area,10.10.20.22,20,2024-03-01,Active,Online
+CAM-09,Security Camera,Hikvision DS-2CD2386G2,CAM-ISB-009,Elevator Lobby F1,10.10.20.23,20,2024-03-01,Active,Online
+CAM-10,Security Camera,Hikvision DS-2CD2386G2,CAM-ISB-010,Staircase F1,10.10.20.24,20,2024-03-01,Active,Online
+CAM-11,Security Camera,Hikvision DS-2CD2T86G2,CAM-ISB-011,Back Entrance,10.10.20.25,20,2024-03-01,Active,Online
+CAM-12,Security Camera,Hikvision DS-2CD2386G2,CAM-ISB-012,Elevator Lobby F2,10.10.20.31,20,2024-03-01,Active,Online
+CAM-13,Security Camera,Hikvision DS-2CD2386G2,CAM-ISB-013,Corridor F2,10.10.20.32,20,2024-03-01,Active,Online
+CAM-14,Security Camera,Hikvision DS-2CD2386G2,CAM-ISB-014,Elevator Lobby F3,10.10.20.41,20,2024-03-01,Active,Online
+CAM-15,Security Camera,Hikvision DS-2CD2386G2,CAM-ISB-015,Corridor F3,10.10.20.42,20,2024-03-01,Active,Online
+CAM-16,Security Camera,Hikvision DS-2CD2386G2,CAM-ISB-016,Elevator Lobby F4,10.10.20.51,20,2024-03-01,Active,Online
+CAM-17,Security Camera,Hikvision DS-2CD2386G2,CAM-ISB-017,Corridor F4,10.10.20.52,20,2024-03-01,Active,Online
+CAM-18,Security Camera,Hikvision DS-2CD2386G2,CAM-ISB-018,Elevator Lobby F5,10.10.20.61,20,2024-03-01,Active,Online
+CAM-19,Security Camera,Hikvision DS-2CD2386G2,CAM-ISB-019,Corridor F5,10.10.20.62,20,2024-03-01,Active,Online
+CAM-20,Security Camera,Hikvision DS-2CD2T86G2,CAM-ISB-020,Rooftop Door,10.10.20.71,20,2024-03-01,Active,Online

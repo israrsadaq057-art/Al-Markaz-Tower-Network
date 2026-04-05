@@ -1,0 +1,51 @@
+Cable ID,Type,From Device,From Port,To Device,To Port,Length(m),Color,Status,Tested
+TRUNK-01,Fiber,ISP Termination,Main Port,MDF ODF,Input,50,Yellow,Installed,Yes
+OLT-SPL-01,Fiber,OLT PON1,PON Port 1,1:32 Splitter A,Input,2,Yellow,Installed,Yes
+OLT-SPL-02,Fiber,OLT PON2,PON Port 2,1:32 Splitter B,Input,2,Yellow,Installed,Yes
+MDF-F1,Cat6,Core Switch,Gi1/0/1,Floor 1 Dist Sw,Gi1/0/24,25,Blue,Installed,Yes
+MDF-F2,Cat6,Core Switch,Gi1/0/2,Floor 2 Dist Sw,Gi1/0/24,35,Blue,Installed,Yes
+MDF-F3,Cat6,Core Switch,Gi1/0/3,Floor 3 Dist Sw,Gi1/0/24,45,Blue,Installed,Yes
+MDF-F4,Cat6,Core Switch,Gi1/0/4,Floor 4 Dist Sw,Gi1/0/24,55,Blue,Installed,Yes
+MDF-F5,Cat6,Core Switch,Gi1/0/5,Floor 5 Dist Sw,Gi1/0/24,65,Blue,Installed,Yes
+CORE-FW,Cat6,Core Switch,Gi1/0/48,Firewall,Inside Port,3,Red,Installed,Yes
+CORE-NVR,Cat6,Core Switch,Gi1/0/47,NVR Server,LAN1,5,Green,Installed,Yes
+CORE-OLT,Cat6,Core Switch,Gi1/0/46,OLT,Management,4,Green,Installed,Yes
+FW-ISP,Cat6,Firewall,Outside Port,ISP ONT,LAN1,2,Orange,Installed,Yes
+FIB-1A,Fiber,Floor 1 Dist Box,Port 1,Apartment 1A ONT,Fiber Port,15,Yellow,Installed,Yes
+FIB-1B,Fiber,Floor 1 Dist Box,Port 2,Apartment 1B ONT,Fiber Port,18,Yellow,Installed,Yes
+FIB-1C,Fiber,Floor 1 Dist Box,Port 3,Apartment 1C ONT,Fiber Port,12,Yellow,Installed,Yes
+FIB-1D,Fiber,Floor 1 Dist Box,Port 4,Apartment 1D ONT,Fiber Port,14,Yellow,Installed,Yes
+FIB-2A,Fiber,Floor 2 Dist Box,Port 1,Apartment 2A ONT,Fiber Port,10,Yellow,Installed,Yes
+FIB-2B,Fiber,Floor 2 Dist Box,Port 2,Apartment 2B ONT,Fiber Port,12,Yellow,Installed,Yes
+FIB-2C,Fiber,Floor 2 Dist Box,Port 3,Apartment 2C ONT,Fiber Port,15,Yellow,Installed,Yes
+FIB-2D,Fiber,Floor 2 Dist Box,Port 4,Apartment 2D ONT,Fiber Port,10,Yellow,Installed,Yes
+FIB-3A,Fiber,Floor 3 Dist Box,Port 1,Apartment 3A ONT,Fiber Port,14,Yellow,Installed,Yes
+FIB-3B,Fiber,Floor 3 Dist Box,Port 2,Apartment 3B ONT,Fiber Port,16,Yellow,Installed,Yes
+FIB-3C,Fiber,Floor 3 Dist Box,Port 3,Apartment 3C ONT,Fiber Port,11,Yellow,Installed,Yes
+FIB-3D,Fiber,Floor 3 Dist Box,Port 4,Apartment 3D ONT,Fiber Port,13,Yellow,Installed,Yes
+FIB-4A,Fiber,Floor 4 Dist Box,Port 1,Apartment 4A ONT,Fiber Port,15,Yellow,Installed,Yes
+FIB-4B,Fiber,Floor 4 Dist Box,Port 2,Apartment 4B ONT,Fiber Port,12,Yellow,Installed,Yes
+FIB-4C,Fiber,Floor 4 Dist Box,Port 3,Apartment 4C ONT,Fiber Port,10,Yellow,Installed,Yes
+FIB-4D,Fiber,Floor 4 Dist Box,Port 4,Apartment 4D ONT,Fiber Port,14,Yellow,Installed,Yes
+FIB-5A,Fiber,Floor 5 Dist Box,Port 1,Apartment 5A ONT,Fiber Port,18,Yellow,Installed,Yes
+FIB-5B,Fiber,Floor 5 Dist Box,Port 2,Apartment 5B ONT,Fiber Port,16,Yellow,Installed,Yes
+FIB-5C,Fiber,Floor 5 Dist Box,Port 3,Apartment 5C ONT,Fiber Port,12,Yellow,Installed,Yes
+FIB-5D,Fiber,Floor 5 Dist Box,Port 4,Apartment 5D ONT,Fiber Port,14,Yellow,Installed,Yes
+CAM-01,Cat6 PoE,PoE Switch 1,Port 1,CAM-01,Ethernet,25,Yellow,Installed,Yes
+CAM-02,Cat6 PoE,PoE Switch 1,Port 2,CAM-02,Ethernet,30,Yellow,Installed,Yes
+CAM-03,Cat6 PoE,PoE Switch 1,Port 3,CAM-03,Ethernet,15,Yellow,Installed,Yes
+CAM-04,Cat6 PoE,PoE Switch 1,Port 4,CAM-04,Ethernet,18,Yellow,Installed,Yes
+CAM-05,Cat6 PoE,PoE Switch 1,Port 5,CAM-05,Ethernet,20,Yellow,Installed,Yes
+CAM-06,Cat6 PoE,PoE Switch 1,Port 6,CAM-06,Ethernet,8,Yellow,Installed,Yes
+CAM-07,Cat6 PoE,Floor 1 Switch,Gi1/0/5,CAM-07,Ethernet,12,Yellow,Installed,Yes
+CAM-08,Cat6 PoE,Floor 1 Switch,Gi1/0/6,CAM-08,Ethernet,10,Yellow,Installed,Yes
+CAM-09,Cat6 PoE,Floor 1 Switch,Gi1/0/7,CAM-09,Ethernet,8,Yellow,Installed,Yes
+CAM-10,Cat6 PoE,Floor 1 Switch,Gi1/0/8,CAM-10,Ethernet,6,Yellow,Installed,Yes
+CAM-11,Cat6 PoE,Floor 1 Switch,Gi1/0/9,CAM-11,Ethernet,15,Yellow,Installed,Yes
+SW1-ONT-1A,Cat6,Floor 1 Switch,Gi1/0/1,Apartment 1A ONT,LAN1,2,Green,Installed,Yes
+SW1-ONT-1B,Cat6,Floor 1 Switch,Gi1/0/2,Apartment 1B ONT,LAN1,2,Green,Installed,Yes
+SW1-ONT-1C,Cat6,Floor 1 Switch,Gi1/0/3,Apartment 1C ONT,LAN1,2,Green,Installed,Yes
+SW1-ONT-1D,Cat6,Floor 1 Switch,Gi1/0/4,Apartment 1D ONT,LAN1,2,Green,Installed,Yes
+AP-COMM-01,Cat6 PoE,Floor 1 Switch,Gi1/0/10,AP-Community Hall,PoE,12,Blue,Installed,Yes
+AP-COMM-02,Cat6 PoE,Floor 1 Switch,Gi1/0/11,AP-Reception,PoE,8,Blue,Installed,Yes
+AP-COMM-03,Cat6 PoE,Floor 1 Switch,Gi1/0/12,AP-Lobby,PoE,6,Blue,Installed,Yes

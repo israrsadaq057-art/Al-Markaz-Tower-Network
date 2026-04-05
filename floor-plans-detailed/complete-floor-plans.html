@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Markaz Tower - Physical Floor Plans with Camera Positions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0f1a 0%, #0f172a 100%);
+            padding: 30px;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding: 25px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 24px;
+            border: 1px solid rgba(0,212,255,0.3);
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .floor-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .floor-btn {
+            background: rgba(15,23,42,0.8);
+            border: 2px solid rgba(0,212,255,0.3);
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #94a3b8;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .floor-btn:hover {
+            background: rgba(0,212,255,0.2);
+            color: #00d4ff;
+            transform: translateY(-2px);
+        }
+
+        .floor-btn.active {
+            background: linear-gradient(135deg, #00d4ff, #0284c7);
+            color: white;
+            border-color: #00d4ff;
+        }
+
+        .floor-plan {
+            display: none;
+            background: rgba(15,23,42,0.6);
+            border-radius: 24px;
+            padding: 25px;
+            border: 1px solid rgba(0,212,255,0.2);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .floor-plan.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .floor-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #00d4ff;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* Building Layout Grid */
+        .building-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .floor-svg-container {
+            background: #0a0f1a;
+            border-radius: 20px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        svg {
+            width: 100%;
+            height: auto;
+            min-width: 800px;
+        }
+
+        .camera-legend {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+        }
+
+        .legend-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .legend-dome { background: #eab308; border: 2px solid #fff; }
+        .legend-bullet { background: #ef4444; border: 2px solid #fff; }
+        .legend-coverage { background: rgba(234,179,8,0.2); border: 1px dashed #eab308; }
+
+        .camera-table {
+            margin-top: 25px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .camera-table th, .camera-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 12px;
+        }
+
+        .camera-table th {
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        .camera-table tr:hover {
+            background: rgba(0,212,255,0.05);
+        }
+
+        .camera-id {
+            font-weight: 700;
+            color: #eab308;
+        }
+
+        .ip-address {
+            font-family: monospace;
+            color: #22c55e;
+        }
+
+        .coverage-area {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            white-space: nowrap;
+            display: none;
+            z-index: 100;
+            border: 1px solid #00d4ff;
+        }
+
+        .coverage-area:hover .tooltip {
+            display: block;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: #64748b;
+            font-size: 11px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 30px;
+        }
+
+        .stat-badge {
+            display: inline-block;
+            background: rgba(0,212,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🗺️ AL-MARKAZ TOWER - PHYSICAL FLOOR PLANS</h1>
+            <p style="margin-top: 10px;">📍 Blue Area, Islamabad, Pakistan | Complete Camera Positions & Coverage Areas</p>
+            <p style="margin-top: 5px;">👨‍💻 Network Engineer: Israr Sadaq | CCNA | CCNP | Berlin, Germany</p>
+            <div style="margin-top: 15px;">
+                <span class="stat-badge">📷 24 Total Cameras</span>
+                <span class="stat-badge">🎯 100% Coverage</span>
+                <span class="stat-badge">🔴 4K Resolution</span>
+                <span class="stat-badge">🌙 Night Vision Ready</span>
+            </div>
+        </div>
+
+        <!-- Floor Selector -->
+        <div class="floor-selector">
+            <button class="floor-btn active" onclick="showFloor('basement')">🚗 BASEMENT - Parking (6 Cameras)</button>
+            <button class="floor-btn" onclick="showFloor('floor1')">🏢 FLOOR 1 - Entrance/Reception (5 Cameras)</button>
+            <button class="floor-btn" onclick="showFloor('floor2')">🏢 FLOOR 2 - Residential (2 Cameras)</button>
+            <button class="floor-btn" onclick="showFloor('floor3')">🏢 FLOOR 3 - Residential (2 Cameras)</button>
+            <button class="floor-btn" onclick="showFloor('floor4')">🏢 FLOOR 4 - Residential (2 Cameras)</button>
+            <button class="floor-btn" onclick="showFloor('floor5')">🏢 FLOOR 5 - Residential + Rooftop (3 Cameras)</button>
+        </div>
+
+        <!-- BASEMENT FLOOR PLAN -->
+        <div id="basement" class="floor-plan active">
+            <div class="floor-title">🚗 BASEMENT FLOOR - PARKING & MDF ROOM (6 Cameras)</div>
+            
+            <div class="floor-svg-container">
+                <svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Background -->
+                    <rect width="1000" height="700" fill="#0f172a" rx="10"/>
+                    
+                    <!-- Parking Area -->
+                    <rect x="50" y="50" width="700" height="600" fill="#1e293b" stroke="#334155" stroke-width="2" rx="5"/>
+                    <text x="400" y="80" text-anchor="middle" fill="#94a3b8" font-size="14">PARKING AREA (40 Cars)</text>
+                    
+                    <!-- Parking Rows -->
+                    <!-- Row A -->
+                    <rect x="70" y="100" width="660" height="80" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+                    <text x="400" y="145" text-anchor="middle" fill="#64748b" font-size="12">ROW A - 15 Cars</text>
+                    
+                    <!-- Row B -->
+                    <rect x="70" y="200" width="660" height="80" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+                    <text x="400" y="245" text-anchor="middle" fill="#64748b" font-size="12">ROW B - 15 Cars</text>
+                    
+                    <!-- Row C -->
+                    <rect x="70" y="300" width="660" height="80" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+                    <text x="400" y="345" text-anchor="middle" fill="#64748b" font-size="12">ROW C - 10 Cars</text>
+                    
+                    <!-- Entry Ramp -->
+                    <rect x="770" y="100" width="180" height="120" fill="#1e293b" stroke="#ef4444" stroke-width="2" rx="5"/>
+                    <text x="860" y="150" text-anchor="middle" fill="#ef4444" font-size="12" font-weight="bold">ENTRY RAMP</text>
+                    <text x="860" y="170" text-anchor="middle" fill="#94a3b8" font-size="10">Vehicles Enter</text>
+                    
+                    <!-- Exit Ramp -->
+                    <rect x="770" y="450" width="180" height="120" fill="#1e293b" stroke="#ef4444" stroke-width="2" rx="5"/>
+                    <text x="860" y="500" text-anchor="middle" fill="#ef4444" font-size="12" font-weight="bold">EXIT RAMP</text>
+                    <text x="860" y="520" text-anchor="middle" fill="#94a3b8" font-size="10">Vehicles Exit</text>
+                    
+                    <!-- MDF Room -->
+                    <rect x="770" y="250" width="180" height="150" fill="#1e293b" stroke="#22c55e" stroke-width="2" rx="5"/>
+                    <text x="860" y="300" text-anchor="middle" fill="#22c55e" font-size="12" font-weight="bold">MDF ROOM</text>
+                    <text x="860" y="320" text-anchor="middle" fill="#94a3b8" font-size="10">OLT | NVR | Core Switch</text>
+                    <text x="860" y="340" text-anchor="middle" fill="#94a3b8" font-size="10">UPS | Generator</text>
+                    
+                    <!-- CAMERAS -->
+                    <!-- CAM-01 Entry Ramp -->
+                    <circle cx="770" cy="120" r="12" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+                    <text x="770" y="124" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">01</text>
+                    <!-- Coverage Arc -->
+                    <path d="M 770 120 L 650 80 A 200 200 0 0 0 650 200 Z" fill="rgba(239,68,68,0.1)" stroke="#ef4444" stroke-width="1" stroke-dasharray="4"/>
+                    
+                    <!-- CAM-02 Exit Ramp -->
+                    <circle cx="770" cy="510" r="12" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+                    <text x="770" y="514" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">02</text>
+                    <path d="M 770 510 L 650 450 A 200 200 0 0 0 650 570 Z" fill="rgba(239,68,68,0.1)" stroke="#ef4444" stroke-width="1" stroke-dasharray="4"/>
+                    
+                    <!-- CAM-03 Parking Row A (360° Dome) -->
+                    <circle cx="400" cy="140" r="12" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                    <text x="400" y="144" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">03</text>
+                    <circle cx="400" cy="140" r="60" fill="rgba(234,179,8,0.1)" stroke="#eab308" stroke-width="1" stroke-dasharray="4"/>
+                    
+                    <!-- CAM-04 Parking Row B (360° Dome) -->
+                    <circle cx="400" cy="240" r="12" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                    <text x="400" y="244" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">04</text>
+                    <circle cx="400" cy="240" r="60" fill="rgba(234,179,8,0.1)" stroke="#eab308" stroke-width="1" stroke-dasharray="4"/>
+                    
+                    <!-- CAM-05 Parking Row C (360° Dome) -->
+                    <circle cx="400" cy="340" r="12" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                    <text x="400" y="344" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">05</text>
+                    <circle cx="400" cy="340" r="60" fill="rgba(234,179,8,0.1)" stroke="#eab308" stroke-width="1" stroke-dasharray="4"/>
+                    
+                    <!-- CAM-06 MDF Room Door -->
+                    <circle cx="770" cy="400" r="12" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                    <text x="770" y="404" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">06</text>
+                    <path d="M 770 400 L 700 380 L 700 420 Z" fill="rgba(234,179,8,0.1)" stroke="#eab308" stroke-width="1" stroke-dasharray="4"/>
+                </svg>
+            </div>
+
+            <div class="camera-legend">
+                <div class="legend-item"><div class="legend-dot legend-bullet"></div><span>Bullet Camera (4K)</span></div>
+                <div class="legend-item"><div class="legend-dot legend-dome"></div><span>Dome Camera 360° (4K)</span></div>
+                <div class="legend-item"><div class="legend-dot legend-coverage" style="width: 30px;"></div><span>Camera Coverage Area</span></div>
+            </div>
+
+            <table class="camera-table">
+                <thead>
+                    <tr><th>Camera ID</th><th>Location</th><th>Type</th><th>IP Address</th><th>Coverage</th><th>Purpose</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="camera-id">CAM-01</td><td>Entry Ramp</td><td>Bullet 4K</td><td class="ip-address">10.10.20.11</td><td>North - 30m</td><td>Vehicle entry monitoring, License Plate</td></tr>
+                    <tr><td class="camera-id">CAM-02</td><td>Exit Ramp</td><td>Bullet 4K</td><td class="ip-address">10.10.20.12</td><td>South - 30m</td><td>Vehicle exit monitoring, License Plate</td></tr>
+                    <tr><td class="camera-id">CAM-03</td><td>Parking Row A</td><td>Dome 4K 360°</td><td class="ip-address">10.10.20.13</td><td>360° - 20m radius</td><td>Full parking row surveillance</td></tr>
+                    <tr><td class="camera-id">CAM-04</td><td>Parking Row B</td><td>Dome 4K 360°</td><td class="ip-address">10.10.20.14</td><td>360° - 20m radius</td><td>Full parking row surveillance</td></tr>
+                    <tr><td class="camera-id">CAM-05</td><td>Parking Row C</td><td>Dome 4K 360°</td><td class="ip-address">10.10.20.15</td><td>360° - 20m radius</td><td>Full parking row surveillance</td></tr>
+                    <tr><td class="camera-id">CAM-06</td><td>MDF Room Door</td><td>Dome 4K</td><td class="ip-address">10.10.20.16</td><td>Fixed - Door area</td><td>Equipment room security</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- FLOOR 1 PLAN -->
+        <div id="floor1" class="floor-plan">
+            <div class="floor-title">🏢 FLOOR 1 - MAIN ENTRANCE, RECEPTION & COMMON AREAS (5 Cameras)</div>
+            
+            <div class="floor-svg-container">
+                <svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="1000" height="700" fill="#0f172a" rx="10"/>
+                    
+                    <!-- Building Outline -->
+                    <rect x="50" y="50" width="900" height="600" fill="#1e293b" stroke="#334155" stroke-width="2" rx="5"/>
+                    
+                    <!-- Main Entrance -->
+                    <rect x="400" y="30" width="200" height="50" fill="#1e293b" stroke="#22c55e" stroke-width="2" rx="5"/>
+                    <text x="500" y="55" text-anchor="middle" fill="#22c55e" font-size="12" font-weight="bold">MAIN ENTRANCE</text>
+                    
+                    <!-- Reception Area -->
+                    <rect x="400" y="90" width="200" height="100" fill="#0f172a" stroke="#3b82f6" stroke-width="2" rx="5"/>
+                    <text x="500" y="130" text-anchor="middle" fill="#3b82f6" font-size="12" font-weight="bold">RECEPTION</text>
+                    <text x="500" y="150" text-anchor="middle" fill="#94a3b8" font-size="10">Security Guard Station</text>
+                    
+                    <!-- Elevator Lobby -->
+                    <rect x="400" y="210" width="200" height="80" fill="#0f172a" stroke="#a855f7" stroke-width="2" rx="5"/>
+                    <text x="500" y="250" text-anchor="middle" fill="#a855f7" font-size="12" font-weight="bold">ELEVATOR LOBBY</text>
+                    
+                    <!-- Staircase -->
+                    <rect x="300" y="210" width="80" height="80" fill="#0f172a" stroke="#f97316" stroke-width="2" rx="5"/>
+                    <text x="340" y="255" text-anchor="middle" fill="#f97316" font-size="10" font-weight="bold">STAIRS</text>
+                    
+                    <!-- Back Entrance -->
+                    <rect x="50" y="300" width="100" height="60" fill="#1e293b" stroke="#ef4444" stroke-width="2" rx="5"/>
+                    <text x="100" y="330" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="bold">BACK</text>
+                    <text x="100" y="345" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="bold">ENTRANCE</text>
+                    
+                    <!-- Apartments -->
+                    <rect x="150" y="400" width="180" height="100" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="240" y="440" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">1A</text>
+                    <text x="240" y="460" text-anchor="middle" fill="#64748b" font-size="10">ONT: ALCLF10001</text>
+                    
+                    <rect x="350" y="400" width="180" height="100" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="440" y="440" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">1B</text>
+                    <text x="440" y="460" text-anchor="middle" fill="#64748b" font-size="10">ONT: ALCLF10002</text>
+                    
+                    <rect x="550" y="400" width="180" height="100" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="640" y="440" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">1C</text>
+                    <text x="640" y="460" text-anchor="middle" fill="#64748b" font-size="10">ONT: ALCLF10003</text>
+                    
+                    <rect x="750" y="400" width="180" height="100" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="840" y="440" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">1D</text>
+                    <text x="840" y="460" text-anchor="middle" fill="#64748b" font-size="10">ONT: ALCLF10004</text>
+                    
+                    <!-- Community Hall -->
+                    <rect x="150" y="520" width="780" height="110" fill="#0f172a" stroke="#00d4ff" stroke-width="2" rx="5"/>
+                    <text x="540" y="560" text-anchor="middle" fill="#00d4ff" font-size="14" font-weight="bold">COMMUNITY HALL / COMMON AREA</text>
+                    <text x="540" y="580" text-anchor="middle" fill="#94a3b8" font-size="10">WiFi 6 Coverage (Cisco 9130AXI)</text>
+                    
+                    <!-- CAMERAS FLOOR 1 -->
+                    <!-- CAM-07 Main Entrance -->
+                    <circle cx="500" cy="80" r="14" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+                    <text x="500" y="84" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">07</text>
+                    <path d="M 500 80 L 350 30 A 200 200 0 0 0 650 30 Z" fill="rgba(239,68,68,0.1)" stroke="#ef4444" stroke-width="1" stroke-dasharray="4"/>
+                    
+                    <!-- CAM-08 Reception -->
+                    <circle cx="500" cy="140" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                    <text x="500" y="144" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">08</text>
+                    <circle cx="500" cy="140" r="50" fill="rgba(234,179,8,0.1)" stroke="#eab308" stroke-width="1" stroke-dasharray="4"/>
+                    
+                    <!-- CAM-09 Elevator Lobby -->
+                    <circle cx="500" cy="250" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                    <text x="500" y="254" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">09</text>
+                    <path d="M 500 250 L 400 210 L 600 210 Z" fill="rgba(234,179,8,0.1)" stroke="#eab308" stroke-width="1" stroke-dasharray="4"/>
+                    
+                    <!-- CAM-10 Stairs -->
+                    <circle cx="340" cy="250" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                    <text x="340" y="254" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">10</text>
+                    <path d="M 340 250 L 300 210 L 380 210 Z" fill="rgba(234,179,8,0.1)" stroke="#eab308" stroke-width="1" stroke-dasharray="4"/>
+                    
+                    <!-- CAM-11 Back Entrance -->
+                    <circle cx="100" cy="330" r="14" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+                    <text x="100" y="334" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">11</text>
+                    <path d="M 100 330 L 50 280 A 100 100 0 0 0 50 380 Z" fill="rgba(239,68,68,0.1)" stroke="#ef4444" stroke-width="1" stroke-dasharray="4"/>
+                </svg>
+            </div>
+
+            <table class="camera-table">
+                <thead><tr><th>Camera ID</th><th>Location</th><th>Type</th><th>IP Address</th><th>Coverage</th><th>Purpose</th></tr></thead>
+                <tbody>
+                    <tr><td class="camera-id">CAM-07</td><td>Main Entrance</td><td>Bullet 4K</td><td class="ip-address">10.10.20.21</td><td>Outdoor - 20m</td><td>Building entry monitoring</td></tr>
+                    <tr><td class="camera-id">CAM-08</td><td>Reception Area</td><td>Dome 4K 360°</td><td class="ip-address">10.10.20.22</td><td>360° - 15m</td><td>Lobby & visitor monitoring</td></tr>
+                    <tr><td class="camera-id">CAM-09</td><td>Elevator Lobby</td><td>Dome 4K</td><td class="ip-address">10.10.20.23</td><td>Fixed - Elevator area</td><td>Elevator access monitoring</td></tr>
+                    <tr><td class="camera-id">CAM-10</td><td>Staircase F1</td><td>Dome 4K</td><td class="ip-address">10.10.20.24</td><td>Fixed - Stairwell</td><td>Stairwell security</td></tr>
+                    <tr><td class="camera-id">CAM-11</td><td>Back Entrance</td><td>Bullet 4K</td><td class="ip-address">10.10.20.25</td><td>Outdoor - 15m</td><td>Secondary entry monitoring</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- FLOOR 2 PLAN (Template for Floors 2-4) -->
+        <div id="floor2" class="floor-plan">
+            <div class="floor-title">🏢 FLOOR 2 - RESIDENTIAL (4 Apartments + 2 Cameras)</div>
+            <div class="floor-svg-container">
+                <svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="1000" height="600" fill="#0f172a" rx="10"/>
+                    
+                    <!-- Corridor -->
+                    <rect x="200" y="200" width="600" height="100" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                    <text x="500" y="255" text-anchor="middle" fill="#94a3b8" font-size="14">MAIN CORRIDOR</text>
+                    
+                    <!-- Elevator Lobby -->
+                    <rect x="200" y="100" width="150" height="80" fill="#0f172a" stroke="#a855f7" stroke-width="2" rx="5"/>
+                    <text x="275" y="140" text-anchor="middle" fill="#a855f7" font-size="12" font-weight="bold">ELEVATOR</text>
+                    <text x="275" y="160" text-anchor="middle" fill="#a855f7" font-size="10">LOBBY</text>
+                    
+                    <!-- Apartments -->
+                    <rect x="50" y="100" width="130" height="80" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="115" y="135" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">2A</text>
+                    <text x="115" y="155" text-anchor="middle" fill="#64748b" font-size="8">ONT: ALCLF10005</text>
+                    
+                    <rect x="820" y="100" width="130" height="80" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="885" y="135" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">2B</text>
+                    <text x="885" y="155" text-anchor="middle" fill="#64748b" font-size="8">ONT: ALCLF10006</text>
+                    
+                    <rect x="50" y="420" width="130" height="80" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="115" y="455" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">2C</text>
+                    <text x="115" y="475" text-anchor="middle" fill="#64748b" font-size="8">ONT: ALCLF10007</text>
+                    
+                    <rect x="820" y="420" width="130" height="80" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="885" y="455" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">2D</text>
+                    <text x="885" y="475" text-anchor="middle" fill="#64748b" font-size="8">ONT: ALCLF10008</text>
+                    
+                    <!-- CAM-12 Elevator Lobby -->
+                    <circle cx="275" cy="140" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                    <text x="275" y="144" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">12</text>
+                    <path d="M 275 140 L 200 100 L 350 100 Z" fill="rgba(234,179,8,0.1)" stroke="#eab308" stroke-width="1" stroke-dasharray="4"/>
+                    
+                    <!-- CAM-13 Main Corridor -->
+                    <circle cx="500" cy="250" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                    <text x="500" y="254" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">13</text>
+                    <circle cx="500" cy="250" r="80" fill="rgba(234,179,8,0.1)" stroke="#eab308" stroke-width="1" stroke-dasharray="4"/>
+                </svg>
+            </div>
+            <table class="camera-table">
+                <thead><tr><th>Camera ID</th><th>Location</th><th>Type</th><th>IP Address</th><th>Coverage</th><th>Purpose</th></tr></thead>
+                <tbody>
+                    <tr><td class="camera-id">CAM-12</td><td>Elevator Lobby F2</td><td>Dome 4K</td><td class="ip-address">10.10.20.31</td><td>Fixed - Lobby area</td><td>Floor monitoring</td></tr>
+                    <tr><td class="camera-id">CAM-13</td><td>Main Corridor F2</td><td>Dome 4K 360°</td><td class="ip-address">10.10.20.32</td><td>360° - Hallway</td><td>Hallway surveillance</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- FLOOR 3 PLAN -->
+        <div id="floor3" class="floor-plan">
+            <div class="floor-title">🏢 FLOOR 3 - RESIDENTIAL (4 Apartments + 2 Cameras)</div>
+            <div class="floor-svg-container">
+                <svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="1000" height="600" fill="#0f172a" rx="10"/>
+                    <rect x="200" y="200" width="600" height="100" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                    <text x="500" y="255" text-anchor="middle" fill="#94a3b8" font-size="14">MAIN CORRIDOR</text>
+                    
+                    <rect x="200" y="100" width="150" height="80" fill="#0f172a" stroke="#a855f7" stroke-width="2" rx="5"/>
+                    <text x="275" y="140" text-anchor="middle" fill="#a855f7" font-size="12" font-weight="bold">ELEVATOR LOBBY</text>
+                    
+                    <rect x="50" y="100" width="130" height="80" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="115" y="135" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">3A</text>
+                    <text x="115" y="155" text-anchor="middle" fill="#64748b" font-size="8">ONT: ALCLF10009</text>
+                    
+                    <rect x="820" y="100" width="130" height="80" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="885" y="135" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">3B</text>
+                    <text x="885" y="155" text-anchor="middle" fill="#64748b" font-size="8">ONT: ALCLF10010</text>
+                    
+                    <rect x="50" y="420" width="130" height="80" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="115" y="455" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">3C</text>
+                    <text x="115" y="475" text-anchor="middle" fill="#64748b" font-size="8">ONT: ALCLF10011</text>
+                    
+                    <rect x="820" y="420" width="130" height="80" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="885" y="455" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">3D</text>
+                    <text x="885" y="475" text-anchor="middle" fill="#64748b" font-size="8">ONT: ALCLF10012</text>
+                    
+                    <circle cx="275" cy="140" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                    <text x="275" y="144" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">14</text>
+                    
+                    <circle cx="500" cy="250" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                    <text x="500" y="254" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">15</text>
+                </svg>
+            </div>
+            <table class="camera-table">
+                <thead><tr><th>Camera ID</th><th>Location</th><th>Type</th><th>IP Address</th><th>Coverage</th><th>Purpose</th></tr></thead>
+                <tbody>
+                    <tr><td class="camera-id">CAM-14</td><td>Elevator Lobby F3</td><td>Dome 4K</td><td class="ip-address">10.10.20.41</td><td>Fixed - Lobby area</td><td>Floor monitoring</td></tr>
+                    <tr><td class="camera-id">CAM-15</td><td>Main Corridor F3</td><td>Dome 4K 360°</td><td class="ip-address">10.10.20.42</td><td>360° - Hallway</td><td>Hallway surveillance</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- FLOOR 4 PLAN -->
+        <div id="floor4" class="floor-plan">
+            <div class="floor-title">🏢 FLOOR 4 - RESIDENTIAL (4 Apartments + 2 Cameras)</div>
+            <div class="floor-svg-container">
+                <svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="1000" height="600" fill="#0f172a" rx="10"/>
+                    <rect x="200" y="200" width="600" height="100" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                    <text x="500" y="255" text-anchor="middle" fill="#94a3b8" font-size="14">MAIN CORRIDOR</text>
+                    
+                    <rect x="200" y="100" width="150" height="80" fill="#0f172a" stroke="#a855f7" stroke-width="2" rx="5"/>
+                    <text x="275" y="140" text-anchor="middle" fill="#a855f7" font-size="12" font-weight="bold">ELEVATOR LOBBY</text>
+                    
+                    <rect x="50" y="100" width="130" height="80" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="115" y="135" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">4A</text>
+                    <text x="115" y="155" text-anchor="middle" fill="#64748b" font-size="8">ONT: ALCLF10013</text>
+                    
+                    <rect x="820" y="100" width="130" height="80" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="885" y="135" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">4B</text>
+                    <text x="885" y="155" text-anchor="middle" fill="#64748b" font-size="8">ONT: ALCLF10014</text>
+                    
+                    <rect x="50" y="420" width="130" height="80" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="115" y="455" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">4C</text>
+                    <text x="115" y="475" text-anchor="middle" fill="#64748b" font-size="8">ONT: ALCLF10015</text>
+                    
+                    <rect x="820" y="420" width="130" height="80" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="885" y="455" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">4D</text>
+                    <text x="885" y="475" text-anchor="middle" fill="#64748b" font-size="8">ONT: ALCLF10016</text>
+                    
+                    <circle cx="275" cy="140" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                    <text x="275" y="144" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">16</text>
+                    
+                    <circle cx="500" cy="250" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                    <text x="500" y="254" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">17</text>
+                </svg>
+            </div>
+            <table class="camera-table">
+                <thead><tr><th>Camera ID</th><th>Location</th><th>Type</th><th>IP Address</th><th>Coverage</th><th>Purpose</th></tr></thead>
+                <tbody>
+                    <tr><td class="camera-id">CAM-16</td><td>Elevator Lobby F4</td><td>Dome 4K</td><td class="ip-address">10.10.20.51</td><td>Fixed - Lobby area</td><td>Floor monitoring</td></tr>
+                    <tr><td class="camera-id">CAM-17</td><td>Main Corridor F4</td><td>Dome 4K 360°</td><td class="ip-address">10.10.20.52</td><td>360° - Hallway</td><td>Hallway surveillance</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- FLOOR 5 PLAN -->
+        <div id="floor5" class="floor-plan">
+            <div class="floor-title">🏢 FLOOR 5 - RESIDENTIAL + ROOFTOP ACCESS (3 Cameras)</div>
+            <div class="floor-svg-container">
+                <svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="1000" height="700" fill="#0f172a" rx="10"/>
+                    
+                    <rect x="200" y="200" width="600" height="100" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                    <text x="500" y="255" text-anchor="middle" fill="#94a3b8" font-size="14">MAIN CORRIDOR</text>
+                    
+                    <rect x="200" y="100" width="150" height="80" fill="#0f172a" stroke="#a855f7" stroke-width="2" rx="5"/>
+                    <text x="275" y="140" text-anchor="middle" fill="#a855f7" font-size="12" font-weight="bold">ELEVATOR LOBBY</text>
+                    
+                    <!-- Rooftop Access -->
+                    <rect x="600" y="350" width="150" height="80" fill="#1e293b" stroke="#ef4444" stroke-width="2" rx="5"/>
+                    <text x="675" y="385" text-anchor="middle" fill="#ef4444" font-size="11" font-weight="bold">ROOFTOP</text>
+                    <text x="675" y="405" text-anchor="middle" fill="#ef4444" font-size="10">ACCESS DOOR</text>
+                    
+                    <rect x="50" y="100" width="130" height="80" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="115" y="135" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">5A</text>
+                    <text x="115" y="155" text-anchor="middle" fill="#64748b" font-size="8">ONT: ALCLF10017</text>
+                    
+                    <rect x="820" y="100" width="130" height="80" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="885" y="135" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">5B</text>
+                    <text x="885" y="155" text-anchor="middle" fill="#64748b" font-size="8">ONT: ALCLF10018</text>
+                    
+                    <rect x="50" y="420" width="130" height="80" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="115" y="455" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">5C</text>
+                    <text x="115" y="475" text-anchor="middle" fill="#64748b" font-size="8">ONT: ALCLF10019</text>
+                    
+                    <rect x="820" y="420" width="130" height="80" fill="#0f172a" stroke="#22c55e" stroke-width="1" rx="5"/>
+                    <text x="885" y="455" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">5D</text>
+                    <text x="885" y="475" text-anchor="middle" fill="#64748b" font-size="8">ONT: ALCLF10020</text>
+                    
+                    <circle cx="275" cy="140" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                    <text x="275" y="144" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">18</text>
+                    
+                    <circle cx="500" cy="250" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                    <text x="500" y="254" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">19</text>
+                    
+                    <circle cx="675" cy="390" r="14" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+                    <text x="675" y="394" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">20</text>
+                    <path d="M 675 390 L 600 350 A 100 100 0 0 0 600 430 Z" fill="rgba(239,68,68,0.1)" stroke="#ef4444" stroke-width="1" stroke-dasharray="4"/>
+                </svg>
+            </div>
+            <table class="camera-table">
+                <thead><tr><th>Camera ID</th><th>Location</th><th>Type</th><th>IP Address</th><th>Coverage</th><th>Purpose</th></tr></thead>
+                <tbody>
+                    <tr><td class="camera-id">CAM-18</td><td>Elevator Lobby F5</td><td>Dome 4K</td><td class="ip-address">10.10.20.61</td><td>Fixed - Lobby area</td><td>Floor monitoring</td></tr>
+                    <tr><td class="camera-id">CAM-19</td><td>Main Corridor F5</td><td>Dome 4K 360°</td><td class="ip-address">10.10.20.62</td><td>360° - Hallway</td><td>Hallway surveillance</td></tr>
+                    <tr><td class="camera-id">CAM-20</td><td>Rooftop Door</td><td>Bullet 4K</td><td class="ip-address">10.10.20.71</td><td>Fixed - Door area</td><td>Rooftop access security</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p>🏢 Al-Markaz Tower - Blue Area, Islamabad, Pakistan | Physical Floor Plans with Camera Positions</p>
+            <p>📅 Total Cameras: 24 | Coverage: 100% of all entry points, corridors, and parking areas</p>
+            <p>🔧 All cameras are 4K resolution with night vision and motion detection</p>
+        </div>
+    </div>
+
+    <script>
+        function showFloor(floorId) {
+            // Hide all floor plans
+            document.querySelectorAll('.floor-plan').forEach(floor => {
+                floor.classList.remove('active');
+            });
+            // Remove active class from all buttons
+            document.querySelectorAll('.floor-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Show selected floor
+            document.getElementById(floorId).classList.add('active');
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

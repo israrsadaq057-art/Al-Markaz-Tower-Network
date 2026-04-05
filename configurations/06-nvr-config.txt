@@ -1,0 +1,173 @@
+=============================================================================
+AL-MARKAZ TOWER - ISLAMABAD
+NVR: Hikvision DS-9632NI-I8 (64-Channel)
+Location: Basement MDF Room
+IP Address: 10.10.60.2
+Date: 2024
+Engineer: Israr Sadaq (CCNP)
+=============================================================================
+
+=============================================================================
+NETWORK CONFIGURATION
+=============================================================================
+
+Device Name:        ALMARKAZ-NVR
+IPv4 Address:       10.10.60.2
+IPv4 Subnet Mask:   255.255.255.0
+IPv4 Default Gateway: 10.10.60.1
+Preferred DNS:      8.8.8.8
+Alternate DNS:      8.8.4.4
+HTTP Port:          80
+RTSP Port:          554
+HTTPS Port:         443
+Server Port:        8000
+
+=============================================================================
+CAMERA REGISTRATION (ALL 24 CAMERAS)
+=============================================================================
+
+CAM-01: 10.10.20.11:554 - Basement Entry Ramp (Bullet 4K)
+CAM-02: 10.10.20.12:554 - Basement Exit Ramp (Bullet 4K)
+CAM-03: 10.10.20.13:554 - Parking Row A (Dome 360°)
+CAM-04: 10.10.20.14:554 - Parking Row B (Dome 360°)
+CAM-05: 10.10.20.15:554 - Parking Row C (Dome 360°)
+CAM-06: 10.10.20.16:554 - MDF Room Door (Dome)
+CAM-07: 10.10.20.21:554 - Main Entrance (Bullet)
+CAM-08: 10.10.20.22:554 - Reception (Dome 360°)
+CAM-09: 10.10.20.23:554 - Elevator Lobby F1 (Dome)
+CAM-10: 10.10.20.24:554 - Staircase F1 (Dome)
+CAM-11: 10.10.20.25:554 - Back Entrance (Bullet)
+CAM-12: 10.10.20.31:554 - Elevator Lobby F2 (Dome)
+CAM-13: 10.10.20.32:554 - Corridor F2 (Dome 360°)
+CAM-14: 10.10.20.41:554 - Elevator Lobby F3 (Dome)
+CAM-15: 10.10.20.42:554 - Corridor F3 (Dome 360°)
+CAM-16: 10.10.20.51:554 - Elevator Lobby F4 (Dome)
+CAM-17: 10.10.20.52:554 - Corridor F4 (Dome 360°)
+CAM-18: 10.10.20.61:554 - Elevator Lobby F5 (Dome)
+CAM-19: 10.10.20.62:554 - Corridor F5 (Dome 360°)
+CAM-20: 10.10.20.71:554 - Rooftop Door (Bullet)
+
+=============================================================================
+RECORDING SCHEDULE
+=============================================================================
+
+Continuous Recording (24/7):
+- All Basement Cameras (CAM-01 to CAM-06)
+- All Entrance Cameras (CAM-07, CAM-11)
+- All Elevator Lobby Cameras (CAM-09, CAM-12, CAM-14, CAM-16, CAM-18)
+
+Motion Detection Recording:
+- Corridor Cameras (CAM-13, CAM-15, CAM-17, CAM-19)
+- Rooftop Camera (CAM-20)
+
+Schedule:
+Monday - Sunday:
+00:00-06:00: Motion Detection (Low traffic)
+06:00-22:00: Continuous Recording (High traffic)
+22:00-00:00: Motion Detection (Low traffic)
+
+=============================================================================
+STORAGE CONFIGURATION
+=============================================================================
+
+HDD Configuration:
+HDD 1: 8TB - Camera 01-06 (Basement)
+HDD 2: 8TB - Camera 07-11 (Floor 1)
+HDD 3: 8TB - Camera 12-16 (Floors 2-4)
+HDD 4: 8TB - Camera 17-20 (Floor 5 + Rooftop)
+HDD 5-8: 8TB each - RAID 5 Backup (24TB usable)
+
+RAID Configuration: RAID 5 (1 drive fault tolerance)
+Total Storage: 32TB (8TB x 4 + 24TB RAID)
+Estimated Retention: 30 days
+
+Overwrite Settings:
+- Auto-overwrite oldest recordings when storage full
+- Keep critical events flagged for 90 days
+
+=============================================================================
+USER ACCOUNTS
+=============================================================================
+
+Admin Account:
+Username: admin
+Password: AlMarkazNVR@2024
+Role: Administrator
+
+Security Guard Account:
+Username: security
+Password: Guard@AlMarkaz2024
+Permissions: View only, PTZ control, Export
+
+Maintenance Account:
+Username: engineer
+Password: Eng@AlMarkaz2024
+Permissions: Full access except user management
+
+=============================================================================
+EMAIL ALERT CONFIGURATION
+=============================================================================
+
+SMTP Server: smtp.gmail.com
+Port: 587
+Encryption: TLS
+Username: alerts@almarkaz-tower.com
+Password: [CONFIGURE DURING SETUP]
+Send To: security@almarkaz-tower.com, israr@network-engineer.com
+
+Alerts:
+- Motion Detection (After hours)
+- Camera Offline
+- HDD Failure
+- Storage > 90% Full
+- Login Failures (3 attempts)
+
+=============================================================================
+BACKUP CONFIGURATION
+=============================================================================
+
+Automatic Backup:
+- Daily at 03:00 to External NAS (10.10.60.100)
+- Weekly to USB HDD (Swap every Sunday)
+- Monthly to Cloud (Google Drive)
+
+Export Format:
+- Video: .mp4 (H.265)
+- Snapshots: .jpg
+- Logs: .txt
+
+=============================================================================
+REMOTE ACCESS
+=============================================================================
+
+Hik-Connect Cloud:
+- Enable remote viewing from mobile app
+- Device ID: [ASSIGN DURING SETUP]
+- Share with security team only
+
+VPN Access:
+- Only accessible via site-to-site VPN
+- No direct internet access for security
+
+=============================================================================
+MAINTENANCE SCHEDULE
+=============================================================================
+
+Daily:
+- Check recording status
+- Verify all cameras online
+- Review system logs
+
+Weekly:
+- Clean camera lenses
+- Check storage utilization
+- Test email alerts
+
+Monthly:
+- Reboot NVR (Sunday 03:00)
+- Verify backup integrity
+- Update firmware if available
+
+=============================================================================
+END OF NVR CONFIGURATION
+=============================================================================

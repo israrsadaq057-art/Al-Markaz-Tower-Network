@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Markaz Tower - Basement Floor Plan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: #ffffff;
+            padding: 20px;
+            color: #000000;
+        }
+        .print-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 2px solid #1e293b;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 24px;
+            color: #1e293b;
+        }
+        .header p {
+            color: #64748b;
+            margin-top: 5px;
+        }
+        .floor-plan {
+            padding: 20px;
+            position: relative;
+        }
+        svg {
+            width: 100%;
+            height: auto;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+        }
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 15px;
+            background: #f1f5f9;
+            margin: 20px;
+            border-radius: 8px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+        .legend-bullet {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+        .legend-bullet.bullet { background: #ef4444; }
+        .legend-bullet.dome { background: #eab308; }
+        .legend-line { width: 30px; height: 3px; background: #22c55e; }
+        .camera-table {
+            margin: 20px;
+            width: calc(100% - 40px);
+            border-collapse: collapse;
+        }
+        .camera-table th, .camera-table td {
+            border: 1px solid #cbd5e1;
+            padding: 8px;
+            text-align: left;
+            font-size: 11px;
+        }
+        .camera-table th {
+            background: #1e293b;
+            color: white;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 10px;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 20px;
+        }
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .print-container {
+                box-shadow: none;
+            }
+            .legend {
+                break-inside: avoid;
+            }
+            .camera-table {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-container">
+        <div class="header">
+            <h1>🚗 AL-MARKAZ TOWER - BASEMENT FLOOR PLAN</h1>
+            <p>Parking Level | 6 Security Cameras | MDF Room | Generator Room</p>
+            <p>📍 Blue Area, Islamabad | Date: 2024</p>
+        </div>
+
+        <div class="floor-plan">
+            <svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background -->
+                <rect width="1000" height="700" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+                
+                <!-- Title -->
+                <text x="500" y="30" text-anchor="middle" fill="#1e293b" font-size="16" font-weight="bold">BASEMENT FLOOR PLAN</text>
+                
+                <!-- Parking Area -->
+                <rect x="50" y="50" width="700" height="600" fill="#e2e8f0" stroke="#64748b" stroke-width="2" rx="5"/>
+                <text x="400" y="80" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="bold">PARKING AREA (40 Cars)</text>
+                
+                <!-- Parking Rows -->
+                <rect x="70" y="100" width="660" height="80" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+                <text x="400" y="145" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">ROW A - 15 Cars</text>
+                
+                <rect x="70" y="200" width="660" height="80" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+                <text x="400" y="245" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">ROW B - 15 Cars</text>
+                
+                <rect x="70" y="300" width="660" height="80" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+                <text x="400" y="345" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">ROW C - 10 Cars</text>
+                
+                <!-- Entry Ramp -->
+                <rect x="770" y="80" width="180" height="130" fill="#fee2e2" stroke="#ef4444" stroke-width="2" rx="5"/>
+                <text x="860" y="130" text-anchor="middle" fill="#ef4444" font-size="12" font-weight="bold">ENTRY RAMP</text>
+                <text x="860" y="150" text-anchor="middle" fill="#475569" font-size="10">↓ Vehicles Enter</text>
+                
+                <!-- Exit Ramp -->
+                <rect x="770" y="430" width="180" height="130" fill="#fee2e2" stroke="#ef4444" stroke-width="2" rx="5"/>
+                <text x="860" y="480" text-anchor="middle" fill="#ef4444" font-size="12" font-weight="bold">EXIT RAMP</text>
+                <text x="860" y="500" text-anchor="middle" fill="#475569" font-size="10">↑ Vehicles Exit</text>
+                
+                <!-- MDF Room -->
+                <rect x="770" y="230" width="180" height="160" fill="#dcfce7" stroke="#22c55e" stroke-width="2" rx="5"/>
+                <text x="860" y="280" text-anchor="middle" fill="#22c55e" font-size="12" font-weight="bold">MDF ROOM</text>
+                <text x="860" y="300" text-anchor="middle" fill="#475569" font-size="9">• OLT (Nokia 7360)</text>
+                <text x="860" y="315" text-anchor="middle" fill="#475569" font-size="9">• Core Switch (9300)</text>
+                <text x="860" y="330" text-anchor="middle" fill="#475569" font-size="9">• NVR Server</text>
+                <text x="860" y="345" text-anchor="middle" fill="#475569" font-size="9">• Firewall</text>
+                <text x="860" y="360" text-anchor="middle" fill="#475569" font-size="9">• UPS (2 units)</text>
+                
+                <!-- Generator Room -->
+                <rect x="770" y="580" width="180" height="70" fill="#fef3c7" stroke="#eab308" stroke-width="2" rx="5"/>
+                <text x="860" y="610" text-anchor="middle" fill="#eab308" font-size="11" font-weight="bold">GENERATOR</text>
+                <text x="860" y="630" text-anchor="middle" fill="#475569" font-size="9">20kVA Diesel</text>
+                
+                <!-- CAMERAS -->
+                <!-- CAM-01 Entry Ramp -->
+                <circle cx="770" cy="120" r="14" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+                <text x="770" y="124" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">01</text>
+                <text x="770" y="95" text-anchor="middle" fill="#ef4444" font-size="9">CAM-01</text>
+                
+                <!-- CAM-02 Exit Ramp -->
+                <circle cx="770" cy="510" r="14" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+                <text x="770" y="514" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">02</text>
+                <text x="770" y="485" text-anchor="middle" fill="#ef4444" font-size="9">CAM-02</text>
+                
+                <!-- CAM-03 Parking Row A -->
+                <circle cx="400" cy="140" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                <text x="400" y="144" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">03</text>
+                <text x="400" y="115" text-anchor="middle" fill="#eab308" font-size="9">CAM-03 (360°)</text>
+                
+                <!-- CAM-04 Parking Row B -->
+                <circle cx="400" cy="240" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                <text x="400" y="244" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">04</text>
+                <text x="400" y="215" text-anchor="middle" fill="#eab308" font-size="9">CAM-04 (360°)</text>
+                
+                <!-- CAM-05 Parking Row C -->
+                <circle cx="400" cy="340" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                <text x="400" y="344" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">05</text>
+                <text x="400" y="315" text-anchor="middle" fill="#eab308" font-size="9">CAM-05 (360°)</text>
+                
+                <!-- CAM-06 MDF Door -->
+                <circle cx="770" cy="390" r="14" fill="#eab308" stroke="#fff" stroke-width="2"/>
+                <text x="770" y="394" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">06</text>
+                <text x="770" y="420" text-anchor="middle" fill="#eab308" font-size="9">CAM-06</text>
+            </svg>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item"><div class="legend-bullet bullet"></div><span>Bullet Camera (Entry/Exit)</span></div>
+            <div class="legend-item"><div class="legend-bullet dome"></div><span>Dome Camera 360° (Parking)</span></div>
+            <div class="legend-item"><div class="legend-line"></div><span>Parking Rows</span></div>
+            <div class="legend-item"><span>🚪 MDF Room</span></div>
+            <div class="legend-item"><span>⚡ Generator Room</span></div>
+        </div>
+
+        <table class="camera-table">
+            <thead>
+                <tr><th>Camera ID</th><th>Location</th><th>Type</th><th>IP Address</th><th>Coverage</th><th>Purpose</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>CAM-01</strong></td><td>Entry Ramp</td><td>Bullet 4K</td><td>10.10.20.11</td><td>North - 30m</td><td>Vehicle entry, License Plate</td></tr>
+                <tr><td><strong>CAM-02</strong></td><td>Exit Ramp</td><td>Bullet 4K</td><td>10.10.20.12</td><td>South - 30m</td><td>Vehicle exit, License Plate</td></tr>
+                <tr><td><strong>CAM-03</strong></td><td>Parking Row A</td><td>Dome 360°</td><td>10.10.20.13</td><td>360° - 20m</td><td>Full parking surveillance</td></tr>
+                <tr><td><strong>CAM-04</strong></td><td>Parking Row B</td><td>Dome 360°</td><td>10.10.20.14</td><td>360° - 20m</td><td>Full parking surveillance</td></tr>
+                <tr><td><strong>CAM-05</strong></td><td>Parking Row C</td><td>Dome 360°</td><td>10.10.20.15</td><td>360° - 20m</td><td>Full parking surveillance</td></tr>
+                <tr><td><strong>CAM-06</strong></td><td>MDF Room Door</td><td>Dome 4K</td><td>10.10.20.16</td><td>Fixed - Door</td><td>Equipment room security</td></tr>
+            </tbody>
+        </table>
+
+        <div class="footer">
+            <p>Al-Markaz Tower - Basement Floor Plan | Total Cameras: 6 | Emergency Exits: 2 | Fire Extinguishers: 4 locations</p>
+            <p>📞 Security Control Room: Ext 100 | Emergency: 15 | Police: 15 | Ambulance: 1122</p>
+        </div>
+    </div>
+</body>
+</html>

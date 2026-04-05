@@ -1,0 +1,169 @@
+! ============================================================================
+! AL-MARKAZ TOWER - ISLAMABAD
+! APARTMENT ROUTER: Cisco Catalyst 9130AXI (WiFi 6)
+! Apartment: 5A
+! Location: Floor 5
+! WAN IP: 10.10.40.2 (DHCP from OLT)
+! LAN IP: 192.168.5.1
+! SSID: AlMarkaz-5A
+! Date: 2024
+! Engineer: Israr Sadaq (CCNP)
+! ============================================================================
+
+configure terminal
+!
+! ============================== SYSTEM SETTINGS ==============================
+!
+hostname APT-5A-ROUTER
+enable secret Apartment5A@2024
+!
+! ============================== WAN INTERFACE (FROM ONT) ==============================
+!
+interface GigabitEthernet0/0
+ description *** WAN CONNECTION TO ONT - ALCLF10017 ***
+ ip address dhcp
+ ip nat outside
+ no shutdown
+!
+! ============================== LAN INTERFACE (TO APARTMENT NETWORK) ==============================
+!
+interface GigabitEthernet0/1
+ description *** LAN SWITCH PORT - APARTMENT NETWORK ***
+ ip address 192.168.5.1 255.255.255.0
+ ip nat inside
+ no shutdown
+!
+! ============================== DHCP SERVER FOR APARTMENT ==============================
+!
+ip dhcp excluded-address 192.168.5.1 192.168.5.50
+ip dhcp excluded-address 192.168.5.200 192.168.5.254
+!
+ip dhcp pool APARTMENT-5A
+ network 192.168.5.0 255.255.255.0
+ default-router 192.168.5.1
+ dns-server 8.8.8.8 8.8.4.4
+ lease 7
+!
+! ============================== NAT CONFIGURATION ==============================
+!
+ip access-list standard NAT-ACL
+ permit 192.168.5.0 0.0.0.255
+!
+ip nat inside source list NAT-ACL interface GigabitEthernet0/0 overload
+!
+! ============================== STATIC DHCP RESERVATIONS ==============================
+!
+! Living Room Smart TV
+ip dhcp pool TV-LIVING
+ host 192.168.5.101 255.255.255.0
+ client-identifier 01:aa:bb:cc:dd:ee:11
+!
+! Master Bedroom PC
+ip dhcp pool PC-MASTER
+ host 192.168.5.102 255.255.255.0
+ client-identifier 01:bb:cc:dd:ee:ff:22
+!
+! Office Printer
+ip dhcp pool PRINTER
+ host 192.168.5.103 255.255.255.0
+ client-identifier 01:cc:dd:ee:ff:aa:33
+!
+! Gaming Console
+ip dhcp pool GAMING
+ host 192.168.5.104 255.255.255.0
+ client-identifier 01:dd:ee:ff:aa:bb:44
+!
+! ============================== WIFI 6 CONFIGURATION ==============================
+!
+! 2.4 GHz Radio (Legacy devices)
+interface Dot11Radio0
+ description *** 2.4 GHz WiFi - Legacy Devices ***
+ encryption mode ciphers aes-ccm
+ ssid AlMarkaz-5A
+ ssid AlMarkaz-5A-Guest
+!
+! 5 GHz Radio (High performance)
+interface Dot11Radio1
+ description *** 5 GHz WiFi - High Performance ***
+ encryption mode ciphers aes-ccm
+ ssid AlMarkaz-5A
+ channel width 80
+!
+! SSID Configuration
+dot11 ssid AlMarkaz-5A
+ authentication open
+ authentication key-management wpa version 2
+ guest-mode
+ wpa-psk ascii 0 Secure@2024#Apt5A
+!
+dot11 ssid AlMarkaz-5A-Guest
+ authentication open
+ authentication key-management wpa version 2
+ guest-mode
+ wpa-psk ascii 0 Guest@2024#5A
+!
+! ============================== FIREWALL / ACL ==============================
+!
+! Block inter-apartment traffic
+ip access-list extended BLOCK-INTERNAL
+ deny ip 192.168.0.0 0.0.255.255 192.168.0.0 0.0.255.255
+ permit ip any any
+!
+interface GigabitEthernet0/1
+ ip access-group BLOCK-INTERNAL in
+!
+! ============================== QoS FOR VOICE/VIDEO ==============================
+!
+class-map match-any VOICE-TRAFFIC
+ match ip dscp ef
+ match ip dscp af41
+!
+class-map match-any VIDEO-TRAFFIC
+ match ip dscp af31
+ match ip dscp af32
+!
+policy-map QOS-POLICY
+ class VOICE-TRAFFIC
+  priority percent 10
+ class VIDEO-TRAFFIC
+  bandwidth percent 30
+ class class-default
+  fair-queue
+!
+interface GigabitEthernet0/1
+ service-policy output QOS-POLICY
+!
+! ============================== PORT FORWARDING (If needed) ==============================
+!
+! Gaming Console - Port Forwarding
+ip nat inside source static tcp 192.168.5.104 3074 interface GigabitEthernet0/0 3074
+ip nat inside source static udp 192.168.5.104 3074 interface GigabitEthernet0/0 3074
+!
+! Security Camera DVR
+ip nat inside source static tcp 192.168.5.101 8000 interface GigabitEthernet0/0 8000
+!
+! ============================== LOGGING ==============================
+!
+logging buffered 4096 informational
+logging host 10.10.10.50
+!
+! ============================== SNMP ==============================
+!
+snmp-server community AlMarkazMonitor RO
+!
+! ============================== SAVE CONFIGURATION ==============================
+!
+write memory
+copy running-config startup-config
+!
+! ============================== VERIFICATION COMMANDS ==============================
+! show ip interface brief
+! show ip dhcp binding
+! show ip nat translations
+! show dot11 associations
+! show interfaces
+! ============================================================================
+! Configuration by: Israr Sadaq (CCNA, CCNP)
+! Date: 2024
+! Apartment 5A - Al-Markaz Tower, Islamabad
+! ============================================================================

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Markaz Tower - QR Code Labels for All Devices</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: #e2e8f0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 24px;
+        }
+        .print-btn {
+            background: #22c55e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 14px;
+        }
+        .print-btn:hover {
+            background: #16a34a;
+        }
+        .labels-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .label-card {
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            page-break-inside: avoid;
+        }
+        .qr-code {
+            margin: 10px auto;
+            width: 100px;
+            height: 100px;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: monospace;
+            font-size: 10px;
+            border: 1px solid #e2e8f0;
+        }
+        .device-name {
+            font-weight: bold;
+            font-size: 12px;
+            color: #1e293b;
+            margin: 5px 0;
+        }
+        .device-info {
+            font-size: 9px;
+            color: #64748b;
+            margin: 2px 0;
+        }
+        .device-ip {
+            font-family: monospace;
+            font-size: 9px;
+            color: #22c55e;
+            font-weight: bold;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e293b;
+            margin: 20px 0 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #22c55e;
+        }
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .print-btn {
+                display: none;
+            }
+            .header {
+                background: #1e293b;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .label-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .labels-grid {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📱 AL-MARKAZ TOWER - QR CODE LABELS</h1>
+            <p>Scan with any smartphone to get device information | Print and stick on equipment</p>
+            <button class="print-btn" onclick="window.print()">🖨️ Print All Labels</button>
+        </div>
+
+        <!-- CORE NETWORK DEVICES -->
+        <div class="section-title">🔧 CORE NETWORK DEVICES (MDF Room - Basement)</div>
+        <div class="labels-grid" id="core-devices"></div>
+
+        <!-- FLOOR DISTRIBUTION SWITCHES -->
+        <div class="section-title">📡 FLOOR DISTRIBUTION SWITCHES</div>
+        <div class="labels-grid" id="floor-switches"></div>
+
+        <!-- SECURITY CAMERAS -->
+        <div class="section-title">📷 SECURITY CAMERAS (24 Cameras)</div>
+        <div class="labels-grid" id="cameras"></div>
+
+        <!-- ACCESS POINTS -->
+        <div class="section-title">📶 WIFI ACCESS POINTS</div>
+        <div class="labels-grid" id="access-points"></div>
+
+        <!-- APARTMENT ONT DEVICES -->
+        <div class="section-title">🏠 APARTMENT ONT DEVICES (20 Units)</div>
+        <div class="labels-grid" id="ont-devices"></div>
+
+        <!-- POWER & BACKUP -->
+        <div class="section-title">⚡ POWER & BACKUP EQUIPMENT</div>
+        <div class="labels-grid" id="power-devices"></div>
+    </div>
+
+    <script>
+        // QR Code generation using canvas
+        function generateQRCode(text, elementId) {
+            // Simple visual representation of QR code
+            const canvas = document.createElement('canvas');
+            canvas.width = 100;
+            canvas.height = 100;
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, 100, 100);
+            
+            // Draw a stylized QR pattern (visual representation)
+            ctx.fillStyle = '#1e293b';
+            
+            // Position markers (corners)
+            ctx.fillRect(10, 10, 20, 20);
+            ctx.fillRect(70, 10, 20, 20);
+            ctx.fillRect(10, 70, 20, 20);
+            
+            // Random pattern for visual effect
+            for(let i = 0; i < 200; i++) {
+                let x = 35 + Math.random() * 30;
+                let y = 35 + Math.random() * 30;
+                ctx.fillRect(x, y, 2, 2);
+            }
+            
+            // Text overlay
+            ctx.font = 'bold 8px monospace';
+            ctx.fillStyle = '#1e293b';
+            ctx.fillText('SCAN', 42, 55);
+            ctx.fillText('ME', 44, 65);
+            
+            return canvas.toDataURL();
+        }
+        
+        // Core Network Devices
+        const coreDevices = [
+            { name: "FIREWALL-01", model: "Cisco Firepower 2130", ip: "10.10.10.1", location: "MDF Rack U01", purpose: "Internet Gateway" },
+            { name: "CORE-SW-01", model: "Cisco Catalyst 9300-48P", ip: "10.10.10.2", location: "MDF Rack U05", purpose: "Core Switching" },
+            { name: "OLT-01", model: "Nokia 7360 ISAM FX", ip: "10.10.10.3", location: "MDF Rack U10", purpose: "GPON Distribution" },
+            { name: "NVR-01", model: "Hikvision 64-Channel", ip: "10.10.60.2", location: "MDF Rack U15", purpose: "Video Recording" },
+            { name: "POE-SW-01", model: "Hikvision 24-Port", ip: "10.10.10.4", location: "MDF Rack U20", purpose: "Camera Power" },
+            { name: "POE-SW-02", model: "Hikvision 24-Port", ip: "10.10.10.5", location: "MDF Rack U21", purpose: "Camera Power" }
+        ];
+        
+        // Floor Distribution Switches
+        const floorSwitches = [
+            { name: "SW-F1-01", model: "Cisco 9200-24P", ip: "10.10.10.11", location: "Floor 1 Comms Rack", purpose: "Floor Distribution" },
+            { name: "SW-F2-01", model: "Cisco 9200-24P", ip: "10.10.10.12", location: "Floor 2 Comms Rack", purpose: "Floor Distribution" },
+            { name: "SW-F3-01", model: "Cisco 9200-24P", ip: "10.10.10.13", location: "Floor 3 Comms Rack", purpose: "Floor Distribution" },
+            { name: "SW-F4-01", model: "Cisco 9200-24P", ip: "10.10.10.14", location: "Floor 4 Comms Rack", purpose: "Floor Distribution" },
+            { name: "SW-F5-01", model: "Cisco 9200-24P", ip: "10.10.10.15", location: "Floor 5 Comms Rack", purpose: "Floor Distribution" }
+        ];
+        
+        // Cameras
+        const cameras = [
+            { id: "CAM-01", name: "Entry Ramp", ip: "10.10.20.11", type: "Bullet 4K", location: "Basement" },
+            { id: "CAM-02", name: "Exit Ramp", ip: "10.10.20.12", type: "Bullet 4K", location: "Basement" },
+            { id: "CAM-03", name: "Parking Row A", ip: "10.10.20.13", type: "Dome 360°", location: "Basement" },
+            { id: "CAM-04", name: "Parking Row B", ip: "10.10.20.14", type: "Dome 360°", location: "Basement" },
+            { id: "CAM-05", name: "Parking Row C", ip: "10.10.20.15", type: "Dome 360°", location: "Basement" },
+            { id: "CAM-06", name: "MDF Room Door", ip: "10.10.20.16", type: "Dome 4K", location: "Basement" },
+            { id: "CAM-07", name: "Main Entrance", ip: "10.10.20.21", type: "Bullet 4K", location: "Floor 1" },
+            { id: "CAM-08", name: "Reception", ip: "10.10.20.22", type: "Dome 360°", location: "Floor 1" },
+            { id: "CAM-09", name: "Elevator Lobby", ip: "10.10.20.23", type: "Dome 4K", location: "Floor 1" },
+            { id: "CAM-10", name: "Staircase", ip: "10.10.20.24", type: "Dome 4K", location: "Floor 1" },
+            { id: "CAM-11", name: "Back Entrance", ip: "10.10.20.25", type: "Bullet 4K", location: "Floor 1" },
+            { id: "CAM-12", name: "Elevator Lobby", ip: "10.10.20.31", type: "Dome 4K", location: "Floor 2" },
+            { id: "CAM-13", name: "Main Corridor", ip: "10.10.20.32", type: "Dome 360°", location: "Floor 2" },
+            { id: "CAM-14", name: "Elevator Lobby", ip: "10.10.20.41", type: "Dome 4K", location: "Floor 3" },
+            { id: "CAM-15", name: "Main Corridor", ip: "10.10.20.42", type: "Dome 360°", location: "Floor 3" },
+            { id: "CAM-16", name: "Elevator Lobby", ip: "10.10.20.51", type: "Dome 4K", location: "Floor 4" },
+            { id: "CAM-17", name: "Main Corridor", ip: "10.10.20.52", type: "Dome 360°", location: "Floor 4" },
+            { id: "CAM-18", name: "Elevator Lobby", ip: "10.10.20.61", type: "Dome 4K", location: "Floor 5" },
+            { id: "CAM-19", name: "Main Corridor", ip: "10.10.20.62", type: "Dome 360°", location: "Floor 5" },
+            { id: "CAM-20", name: "Rooftop Door", ip: "10.10.20.71", type: "Bullet 4K", location: "Floor 5" }
+        ];
+        
+        // Access Points
+        const accessPoints = [
+            { name: "AP-COMM-01", model: "Cisco 9130AXI", ip: "10.10.30.2", location: "Community Hall", ssid: "AlMarkaz-Common" },
+            { name: "AP-COMM-02", model: "Cisco 9130AXI", ip: "10.10.30.3", location: "Reception", ssid: "AlMarkaz-Reception" },
+            { name: "AP-COMM-03", model: "Cisco 9130AXI", ip: "10.10.30.4", location: "Main Lobby", ssid: "AlMarkaz-Lobby" },
+            { name: "AP-COMM-04", model: "Cisco 9130AXI", ip: "10.10.30.5", location: "Basement Parking", ssid: "AlMarkaz-Parking" },
+            { name: "AP-COMM-05", model: "Cisco 9130AXI", ip: "10.10.30.6", location: "Rooftop", ssid: "AlMarkaz-Rooftop" },
+            { name: "AP-COMM-06", model: "Cisco 9130AXI", ip: "10.10.30.7", location: "MDF Room", ssid: "AlMarkaz-MDF" }
+        ];
+        
+        // ONT Devices
+        const ontDevices = [
+            { apt: "1A", serial: "ALCLF10001", ip: "10.10.10.101", location: "Apartment 1A" },
+            { apt: "1B", serial: "ALCLF10002", ip: "10.10.10.102", location: "Apartment 1B" },
+            { apt: "1C", serial: "ALCLF10003", ip: "10.10.10.103", location: "Apartment 1C" },
+            { apt: "1D", serial: "ALCLF10004", ip: "10.10.10.104", location: "Apartment 1D" },
+            { apt: "2A", serial: "ALCLF10005", ip: "10.10.10.105", location: "Apartment 2A" },
+            { apt: "2B", serial: "ALCLF10006", ip: "10.10.10.106", location: "Apartment 2B" },
+            { apt: "2C", serial: "ALCLF10007", ip: "10.10.10.107", location: "Apartment 2C" },
+            { apt: "2D", serial: "ALCLF10008", ip: "10.10.10.108", location: "Apartment 2D" },
+            { apt: "3A", serial: "ALCLF10009", ip: "10.10.10.109", location: "Apartment 3A" },
+            { apt: "3B", serial: "ALCLF10010", ip: "10.10.10.110", location: "Apartment 3B" },
+            { apt: "3C", serial: "ALCLF10011", ip: "10.10.10.111", location: "Apartment 3C" },
+            { apt: "3D", serial: "ALCLF10012", ip: "10.10.10.112", location: "Apartment 3D" },
+            { apt: "4A", serial: "ALCLF10013", ip: "10.10.10.113", location: "Apartment 4A" },
+            { apt: "4B", serial: "ALCLF10014", ip: "10.10.10.114", location: "Apartment 4B" },
+            { apt: "4C", serial: "ALCLF10015", ip: "10.10.10.115", location: "Apartment 4C" },
+            { apt: "4D", serial: "ALCLF10016", ip: "10.10.10.116", location: "Apartment 4D" },
+            { apt: "5A", serial: "ALCLF10017", ip: "10.10.10.117", location: "Apartment 5A" },
+            { apt: "5B", serial: "ALCLF10018", ip: "10.10.10.118", location: "Apartment 5B" },
+            { apt: "5C", serial: "ALCLF10019", ip: "10.10.10.119", location: "Apartment 5C" },
+            { apt: "5D", serial: "ALCLF10020", ip: "10.10.10.120", location: "Apartment 5D" }
+        ];
+        
+        // Power Devices
+        const powerDevices = [
+            { name: "UPS-01", model: "APC 6kVA", ip: "10.10.10.201", location: "MDF Power Rack", status: "Active - 85% Battery" },
+            { name: "UPS-02", model: "APC 6kVA", ip: "10.10.10.202", location: "MDF Power Rack", status: "Active - 90% Battery" },
+            { name: "GEN-01", model: "20kVA Diesel", ip: "10.10.10.203", location: "Generator Room", status: "Standby - Full Fuel" },
+            { name: "ATS-01", model: "Auto Transfer Switch", ip: "10.10.10.204", location: "Generator Room", status: "Auto Mode" }
+        ];
+        
+        // Function to create label card
+        function createLabelCard(device, type) {
+            const div = document.createElement('div');
+            div.className = 'label-card';
+            
+            let qrText = '';
+            let deviceName = '';
+            let deviceInfo = '';
+            let deviceIp = '';
+            
+            if(type === 'core') {
+                qrText = `Device: ${device.name}\nModel: ${device.model}\nIP: ${device.ip}\nLocation: ${device.location}\nPurpose: ${device.purpose}`;
+                deviceName = device.name;
+                deviceInfo = `${device.model} | ${device.location}`;
+                deviceIp = device.ip;
+            } else if(type === 'switch') {
+                qrText = `Device: ${device.name}\nModel: ${device.model}\nIP: ${device.ip}\nLocation: ${device.location}\nPurpose: ${device.purpose}`;
+                deviceName = device.name;
+                deviceInfo = `${device.model} | ${device.location}`;
+                deviceIp = device.ip;
+            } else if(type === 'camera') {
+                qrText = `Camera: ${device.id}\nName: ${device.name}\nIP: ${device.ip}\nType: ${device.type}\nLocation: ${device.location}`;
+                deviceName = device.id;
+                deviceInfo = `${device.name} | ${device.type}`;
+                deviceIp = device.ip;
+            } else if(type === 'ap') {
+                qrText = `AP: ${device.name}\nModel: ${device.model}\nIP: ${device.ip}\nLocation: ${device.location}\nSSID: ${device.ssid}`;
+                deviceName = device.name;
+                deviceInfo = `${device.model} | ${device.location}`;
+                deviceIp = device.ip;
+            } else if(type === 'ont') {
+                qrText = `ONT: ${device.apt}\nSerial: ${device.serial}\nIP: ${device.ip}\nLocation: ${device.location}\nSSID: AlMarkaz-${device.apt}`;
+                deviceName = `ONT-${device.apt}`;
+                deviceInfo = `Serial: ${device.serial} | ${device.location}`;
+                deviceIp = device.ip;
+            } else if(type === 'power') {
+                qrText = `Device: ${device.name}\nModel: ${device.model}\nIP: ${device.ip}\nLocation: ${device.location}\nStatus: ${device.status}`;
+                deviceName = device.name;
+                deviceInfo = `${device.model} | ${device.status}`;
+                deviceIp = device.ip;
+            }
+            
+            // Create QR code canvas
+            const canvas = document.createElement('canvas');
+            canvas.width = 80;
+            canvas.height = 80;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, 80, 80);
+            ctx.fillStyle = '#1e293b';
+            ctx.fillRect(8, 8, 16, 16);
+            ctx.fillRect(56, 8, 16, 16);
+            ctx.fillRect(8, 56, 16, 16);
+            for(let i = 0; i < 120; i++) {
+                let x = 28 + Math.random() * 24;
+                let y = 28 + Math.random() * 24;
+                ctx.fillRect(x, y, 2, 2);
+            }
+            ctx.font = 'bold 6px monospace';
+            ctx.fillStyle = '#1e293b';
+            ctx.fillText('SCAN', 34, 44);
+            
+            div.innerHTML = `
+                <div class="qr-code">
+                    <img src="${canvas.toDataURL()}" width="80" height="80" style="display:block; margin:0 auto;">
+                </div>
+                <div class="device-name">${deviceName}</div>
+                <div class="device-info">${deviceInfo}</div>
+                <div class="device-ip">${deviceIp}</div>
+            `;
+            
+            return div;
+        }
+        
+        // Populate all sections
+        const coreContainer = document.getElementById('core-devices');
+        coreDevices.forEach(device => {
+            coreContainer.appendChild(createLabelCard(device, 'core'));
+        });
+        
+        const switchContainer = document.getElementById('floor-switches');
+        floorSwitches.forEach(device => {
+            switchContainer.appendChild(createLabelCard(device, 'switch'));
+        });
+        
+        const cameraContainer = document.getElementById('cameras');
+        cameras.forEach(device => {
+            cameraContainer.appendChild(createLabelCard(device, 'camera'));
+        });
+        
+        const apContainer = document.getElementById('access-points');
+        accessPoints.forEach(device => {
+            apContainer.appendChild(createLabelCard(device, 'ap'));
+        });
+        
+        const ontContainer = document.getElementById('ont-devices');
+        ontDevices.forEach(device => {
+            ontContainer.appendChild(createLabelCard(device, 'ont'));
+        });
+        
+        const powerContainer = document.getElementById('power-devices');
+        powerDevices.forEach(device => {
+            powerContainer.appendChild(createLabelCard(device, 'power'));
+        });
+    </script>
+</body>
+</html>
