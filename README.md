@@ -161,6 +161,9 @@ Al-Markaz-Tower-Network/
 │
 └── 📁 qr-labels/ # QR Code Labels
 └── qr-labels-generator.html # 61 printable QR codes
+├── rack-layouts/
+│   ├── 01-mdf-rack-layout.html
+│   └── 02-floor-distribution-rack.html
 
 ```
 
