@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Markaz Tower - Floor Distribution Rack</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0f1a 0%, #0f172a 100%);
+            padding: 30px;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding: 25px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 24px;
+            border: 1px solid rgba(0,212,255,0.3);
+        }
+        .header h1 {
+            font-size: 28px;
+            background: linear-gradient(135deg, #fff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .floor-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .floor-btn {
+            background: #1e293b;
+            border: 1px solid #00d4ff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: all 0.3s;
+        }
+        .floor-btn:hover, .floor-btn.active {
+            background: #00d4ff;
+            color: #0f172a;
+        }
+        .rack {
+            background: #1a1a2e;
+            border-radius: 16px;
+            padding: 20px;
+            border: 2px solid #334155;
+            display: none;
+        }
+        .rack.active {
+            display: block;
+        }
+        .rack-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 20px;
+        }
+        .rack-unit {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+            background: #0f0f23;
+            border-radius: 6px;
+            padding: 8px 12px;
+        }
+        .unit-number {
+            width: 50px;
+            font-size: 11px;
+            color: #64748b;
+        }
+        .device-icon {
+            width: 40px;
+            font-size: 20px;
+            text-align: center;
+        }
+        .device-info {
+            flex: 1;
+            margin-left: 15px;
+        }
+        .device-name {
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .device-details {
+            font-size: 10px;
+            color: #94a3b8;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 11px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🗄️ AL-MARKAZ TOWER - FLOOR DISTRIBUTION RACKS</h1>
+            <p>📍 Floors 1-5 | 12U Wall-Mounted Rack per Floor</p>
+        </div>
+
+        <div class="floor-selector">
+            <button class="floor-btn active" onclick="showFloor('floor1')">Floor 1 Rack</button>
+            <button class="floor-btn" onclick="showFloor('floor2')">Floor 2 Rack</button>
+            <button class="floor-btn" onclick="showFloor('floor3')">Floor 3 Rack</button>
+            <button class="floor-btn" onclick="showFloor('floor4')">Floor 4 Rack</button>
+            <button class="floor-btn" onclick="showFloor('floor5')">Floor 5 Rack</button>
+        </div>
+
+        <!-- Floor 1 Rack -->
+        <div id="floor1" class="rack active">
+            <div class="rack-title">🏢 FLOOR 1 DISTRIBUTION RACK (12U)</div>
+            <div class="rack-unit">
+                <div class="unit-number">U12</div>
+                <div class="device-icon">🔌</div>
+                <div class="device-info">
+                    <div class="device-name">Cable Management Panel</div>
+                    <div class="device-details">1U - Horizontal Organizer</div>
+                </div>
+            </div>
+            <div class="rack-unit">
+                <div class="unit-number">U11</div>
+                <div class="device-icon">🔌</div>
+                <div class="device-info">
+                    <div class="device-name">Patch Panel</div>
+                    <div class="device-details">24-port Cat6 - To Apartments 1A-1D & Cameras</div>
+                </div>
+            </div>
+            <div class="rack-unit">
+                <div class="unit-number">U10</div>
+                <div class="device-icon">🔄</div>
+                <div class="device-info">
+                    <div class="device-name">Cisco Catalyst 9200-24P - DISTRIBUTION SWITCH</div>
+                    <div class="device-details">24-Port Gigabit PoE+ | 4 x 1G Uplinks</div>
+                    <div class="device-details">Mgmt IP: 10.10.10.11 | VLAN 10</div>
+                </div>
+            </div>
+            <div class="rack-unit">
+                <div class="unit-number">U9</div>
+                <div class="device-icon">🔌</div>
+                <div class="device-info">
+                    <div class="device-name">Fiber Termination Box</div>
+                    <div class="device-details">4-port SC/APC - ONT Connections</div>
+                </div>
+            </div>
+            <div class="rack-unit">
+                <div class="unit-number">U8</div>
+                <div class="device-icon">⚡</div>
+                <div class="device-info">
+                    <div class="device-name">PDU - Power Distribution</div>
+                    <div class="device-details">8-Outlet | Surge Protected</div>
+                </div>
+            </div>
+            <div class="rack-unit">
+                <div class="unit-number">U7</div>
+                <div class="device-icon">🔋</div>
+                <div class="device-info">
+                    <div class="device-name">APC 1.5kVA UPS</div>
+                    <div class="device-details">Backup for Floor Switch | 60 min Runtime</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floor 2 Rack (Same as above but with different IP) -->
+        <div id="floor2" class="rack">
+            <div class="rack-title">🏢 FLOOR 2 DISTRIBUTION RACK (12U)</div>
+            <div class="rack-unit"><div class="unit-number">U12</div><div class="device-icon">🔌</div><div class="device-info"><div class="device-name">Cable Management Panel</div><div class="device-details">1U - Horizontal Organizer</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U11</div><div class="device-icon">🔌</div><div class="device-info"><div class="device-name">Patch Panel</div><div class="device-details">24-port Cat6 - To Apartments 2A-2D & Cameras</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U10</div><div class="device-icon">🔄</div><div class="device-info"><div class="device-name">Cisco Catalyst 9200-24P - DISTRIBUTION SWITCH</div><div class="device-details">24-Port Gigabit PoE+ | 4 x 1G Uplinks</div><div class="device-details">Mgmt IP: 10.10.10.12 | VLAN 10</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U9</div><div class="device-icon">🔌</div><div class="device-info"><div class="device-name">Fiber Termination Box</div><div class="device-details">4-port SC/APC - ONT Connections</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U8</div><div class="device-icon">⚡</div><div class="device-info"><div class="device-name">PDU - Power Distribution</div><div class="device-details">8-Outlet | Surge Protected</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U7</div><div class="device-icon">🔋</div><div class="device-info"><div class="device-name">APC 1.5kVA UPS</div><div class="device-details">Backup for Floor Switch | 60 min Runtime</div></div></div>
+        </div>
+
+        <!-- Floor 3 Rack -->
+        <div id="floor3" class="rack">
+            <div class="rack-title">🏢 FLOOR 3 DISTRIBUTION RACK (12U)</div>
+            <div class="rack-unit"><div class="unit-number">U12</div><div class="device-icon">🔌</div><div class="device-info"><div class="device-name">Cable Management Panel</div><div class="device-details">1U - Horizontal Organizer</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U11</div><div class="device-icon">🔌</div><div class="device-info"><div class="device-name">Patch Panel</div><div class="device-details">24-port Cat6 - To Apartments 3A-3D & Cameras</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U10</div><div class="device-icon">🔄</div><div class="device-info"><div class="device-name">Cisco Catalyst 9200-24P - DISTRIBUTION SWITCH</div><div class="device-details">24-Port Gigabit PoE+ | 4 x 1G Uplinks</div><div class="device-details">Mgmt IP: 10.10.10.13 | VLAN 10</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U9</div><div class="device-icon">🔌</div><div class="device-info"><div class="device-name">Fiber Termination Box</div><div class="device-details">4-port SC/APC - ONT Connections</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U8</div><div class="device-icon">⚡</div><div class="device-info"><div class="device-name">PDU - Power Distribution</div><div class="device-details">8-Outlet | Surge Protected</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U7</div><div class="device-icon">🔋</div><div class="device-info"><div class="device-name">APC 1.5kVA UPS</div><div class="device-details">Backup for Floor Switch | 60 min Runtime</div></div></div>
+        </div>
+
+        <!-- Floor 4 Rack -->
+        <div id="floor4" class="rack">
+            <div class="rack-title">🏢 FLOOR 4 DISTRIBUTION RACK (12U)</div>
+            <div class="rack-unit"><div class="unit-number">U12</div><div class="device-icon">🔌</div><div class="device-info"><div class="device-name">Cable Management Panel</div><div class="device-details">1U - Horizontal Organizer</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U11</div><div class="device-icon">🔌</div><div class="device-info"><div class="device-name">Patch Panel</div><div class="device-details">24-port Cat6 - To Apartments 4A-4D & Cameras</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U10</div><div class="device-icon">🔄</div><div class="device-info"><div class="device-name">Cisco Catalyst 9200-24P - DISTRIBUTION SWITCH</div><div class="device-details">24-Port Gigabit PoE+ | 4 x 1G Uplinks</div><div class="device-details">Mgmt IP: 10.10.10.14 | VLAN 10</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U9</div><div class="device-icon">🔌</div><div class="device-info"><div class="device-name">Fiber Termination Box</div><div class="device-details">4-port SC/APC - ONT Connections</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U8</div><div class="device-icon">⚡</div><div class="device-info"><div class="device-name">PDU - Power Distribution</div><div class="device-details">8-Outlet | Surge Protected</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U7</div><div class="device-icon">🔋</div><div class="device-info"><div class="device-name">APC 1.5kVA UPS</div><div class="device-details">Backup for Floor Switch | 60 min Runtime</div></div></div>
+        </div>
+
+        <!-- Floor 5 Rack -->
+        <div id="floor5" class="rack">
+            <div class="rack-title">🏢 FLOOR 5 DISTRIBUTION RACK (12U)</div>
+            <div class="rack-unit"><div class="unit-number">U12</div><div class="device-icon">🔌</div><div class="device-info"><div class="device-name">Cable Management Panel</div><div class="device-details">1U - Horizontal Organizer</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U11</div><div class="device-icon">🔌</div><div class="device-info"><div class="device-name">Patch Panel</div><div class="device-details">24-port Cat6 - To Apartments 5A-5D & Cameras</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U10</div><div class="device-icon">🔄</div><div class="device-info"><div class="device-name">Cisco Catalyst 9200-24P - DISTRIBUTION SWITCH</div><div class="device-details">24-Port Gigabit PoE+ | 4 x 1G Uplinks</div><div class="device-details">Mgmt IP: 10.10.10.15 | VLAN 10</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U9</div><div class="device-icon">🔌</div><div class="device-info"><div class="device-name">Fiber Termination Box</div><div class="device-details">4-port SC/APC - ONT Connections</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U8</div><div class="device-icon">⚡</div><div class="device-info"><div class="device-name">PDU - Power Distribution</div><div class="device-details">8-Outlet | Surge Protected</div></div></div>
+            <div class="rack-unit"><div class="unit-number">U7</div><div class="device-icon">🔋</div><div class="device-info"><div class="device-name">APC 1.5kVA UPS</div><div class="device-details">Backup for Floor Switch | 60 min Runtime</div></div></div>
+        </div>
+
+        <div class="footer">
+            <p>🔧 Each Floor: 12U Wall-Mounted Rack | 24-Port PoE Switch | 1.5kVA UPS Backup</p>
+            <p>📡 Uplink to MDF: 2 x 1Gbps Fiber (LACP Trunk)</p>
+        </div>
+    </div>
+
+    <script>
+        function showFloor(floorId) {
+            document.querySelectorAll('.rack').forEach(rack => rack.classList.remove('active'));
+            document.getElementById(floorId).classList.add('active');
+            document.querySelectorAll('.floor-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

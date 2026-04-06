@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Markaz Tower - Main MDF Rack Layout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0f1a 0%, #0f172a 100%);
+            padding: 30px;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding: 25px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 24px;
+            border: 1px solid rgba(0,212,255,0.3);
+        }
+        .header h1 {
+            font-size: 28px;
+            background: linear-gradient(135deg, #fff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .rack-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .rack {
+            background: #1a1a2e;
+            border-radius: 16px;
+            padding: 20px;
+            border: 2px solid #334155;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+        }
+        .rack-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #00d4ff;
+        }
+        .rack-unit {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+            background: #0f0f23;
+            border-radius: 6px;
+            padding: 8px 12px;
+            transition: all 0.2s;
+        }
+        .rack-unit:hover {
+            transform: translateX(5px);
+            background: #1a1a3e;
+        }
+        .unit-number {
+            width: 50px;
+            font-size: 11px;
+            color: #64748b;
+            font-family: monospace;
+        }
+        .device-icon {
+            width: 40px;
+            font-size: 20px;
+            text-align: center;
+        }
+        .device-info {
+            flex: 1;
+            margin-left: 15px;
+        }
+        .device-name {
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .device-details {
+            font-size: 10px;
+            color: #94a3b8;
+            font-family: monospace;
+        }
+        .device-ip {
+            font-size: 10px;
+            color: #22c55e;
+            font-family: monospace;
+        }
+        .empty {
+            opacity: 0.5;
+        }
+        .legend {
+            background: rgba(15,23,42,0.8);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .legend-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+        }
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 11px;
+            margin-top: 30px;
+        }
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .rack {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🗄️ AL-MARKAZ TOWER - MAIN MDF RACK LAYOUT</h1>
+            <p>📍 Basement - Main Distribution Frame Room | 42U Server Rack</p>
+            <p>👨‍💻 Network Engineer: Israr Sadaq (CCNA, CCNP) | Berlin, Germany</p>
+        </div>
+
+        <div class="rack-container">
+            <!-- MDF RACK - FRONT VIEW -->
+            <div class="rack">
+                <div class="rack-title">🔷 MAIN MDF RACK - FRONT VIEW (42U)</div>
+                
+                <!-- U41-U42: Cable Management -->
+                <div class="rack-unit">
+                    <div class="unit-number">U42</div>
+                    <div class="device-icon">🔌</div>
+                    <div class="device-info">
+                        <div class="device-name">Horizontal Cable Management</div>
+                        <div class="device-details">1U - Cable Organizer</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U41</div>
+                    <div class="device-icon">🔌</div>
+                    <div class="device-info">
+                        <div class="device-name">Horizontal Cable Management</div>
+                        <div class="device-details">1U - Cable Organizer</div>
+                    </div>
+                </div>
+
+                <!-- U39-U40: PATCH PANELS -->
+                <div class="rack-unit">
+                    <div class="unit-number">U40</div>
+                    <div class="device-icon">🔌</div>
+                    <div class="device-info">
+                        <div class="device-name">Fiber Patch Panel</div>
+                        <div class="device-details">24-port SC/APC - ODF Unit</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U39</div>
+                    <div class="device-icon">🔌</div>
+                    <div class="device-info">
+                        <div class="device-name">Copper Patch Panel</div>
+                        <div class="device-details">24-port Cat6 - RJ45</div>
+                    </div>
+                </div>
+
+                <!-- U37-U38: CORE SWITCH -->
+                <div class="rack-unit">
+                    <div class="unit-number">U38</div>
+                    <div class="device-icon">🔄</div>
+                    <div class="device-info">
+                        <div class="device-name">Cisco Catalyst 9300-48P - CORE SWITCH</div>
+                        <div class="device-details">48-Port Gigabit PoE+ | 10G Uplinks</div>
+                        <div class="device-ip">Mgmt IP: 10.10.10.2 | VLAN 10</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U37</div>
+                    <div class="device-icon">🔄</div>
+                    <div class="device-info">
+                        <div class="device-name">Cisco Catalyst 9300-48P - CORE SWITCH</div>
+                        <div class="device-details">48-Port Gigabit PoE+ | 10G Uplinks</div>
+                        <div class="device-ip">Mgmt IP: 10.10.10.2 | VLAN 10</div>
+                    </div>
+                </div>
+
+                <!-- U35-U36: PATCH PANEL -->
+                <div class="rack-unit">
+                    <div class="unit-number">U36</div>
+                    <div class="device-icon">🔌</div>
+                    <div class="device-info">
+                        <div class="device-name">Patch Panel</div>
+                        <div class="device-details">24-port Cat6 - To Floor Switches</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U35</div>
+                    <div class="device-icon">🔌</div>
+                    <div class="device-info">
+                        <div class="device-name">Cable Management</div>
+                        <div class="device-details">1U - D-Ring Organizer</div>
+                    </div>
+                </div>
+
+                <!-- U33-U34: FIREWALL -->
+                <div class="rack-unit">
+                    <div class="unit-number">U34</div>
+                    <div class="device-icon">🔥</div>
+                    <div class="device-info">
+                        <div class="device-name">Cisco Firepower 2130 - FIREWALL</div>
+                        <div class="device-details">8-Port | 10G SFP+ | IPS/IDS</div>
+                        <div class="device-ip">Mgmt IP: 10.10.10.1 | WAN: 203.0.113.2</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U33</div>
+                    <div class="device-icon">📡</div>
+                    <div class="device-info">
+                        <div class="device-name">ISP ONT / Router</div>
+                        <div class="device-details">PTCL/Transworld | 1 Gbps Fiber</div>
+                        <div class="device-ip">WAN IP: DHCP from ISP</div>
+                    </div>
+                </div>
+
+                <!-- U31-U32: PATCH -->
+                <div class="rack-unit">
+                    <div class="unit-number">U32</div>
+                    <div class="device-icon">🔌</div>
+                    <div class="device-info">
+                        <div class="device-name">Cable Management</div>
+                        <div class="device-details">1U - Horizontal Organizer</div>
+                    </div>
+                </div>
+
+                <!-- U29-U30: OLT -->
+                <div class="rack-unit">
+                    <div class="unit-number">U30</div>
+                    <div class="device-icon">📡</div>
+                    <div class="device-info">
+                        <div class="device-name">Nokia 7360 ISAM FX-8 - GPON OLT</div>
+                        <div class="device-details">8 PON Ports | 2.5 Gbps GPON</div>
+                        <div class="device-ip">Mgmt IP: 10.10.10.3 | VLAN 10</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U29</div>
+                    <div class="device-icon">🔀</div>
+                    <div class="device-info">
+                        <div class="device-name">1:32 GPON Splitter (Unit A)</div>
+                        <div class="device-details">1 Input → 32 Outputs | PLC Splitter</div>
+                    </div>
+                </div>
+
+                <!-- U27-U28: SPLITTER -->
+                <div class="rack-unit">
+                    <div class="unit-number">U28</div>
+                    <div class="device-icon">🔀</div>
+                    <div class="device-info">
+                        <div class="device-name">1:32 GPON Splitter (Unit B)</div>
+                        <div class="device-details">1 Input → 32 Outputs | PLC Splitter</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U27</div>
+                    <div class="device-icon">🔌</div>
+                    <div class="device-info">
+                        <div class="device-name">Fiber Distribution Panel</div>
+                        <div class="device-details">24-port SC/APC</div>
+                    </div>
+                </div>
+
+                <!-- U25-U26: NVR -->
+                <div class="rack-unit">
+                    <div class="unit-number">U26</div>
+                    <div class="device-icon">📹</div>
+                    <div class="device-info">
+                        <div class="device-name">Hikvision 64-Channel NVR</div>
+                        <div class="device-details">8-Bay | 32TB Storage | RAID 5</div>
+                        <div class="device-ip">Mgmt IP: 10.10.60.2 | VLAN 60</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U25</div>
+                    <div class="device-icon">🔌</div>
+                    <div class="device-info">
+                        <div class="device-name">Cable Management</div>
+                        <div class="device-details">1U - D-Ring Organizer</div>
+                    </div>
+                </div>
+
+                <!-- U23-U24: PoE SWITCHES -->
+                <div class="rack-unit">
+                    <div class="unit-number">U24</div>
+                    <div class="device-icon">🔄</div>
+                    <div class="device-info">
+                        <div class="device-name">Hikvision PoE Switch - CAMERAS (Unit 1)</div>
+                        <div class="device-details">24-Port | 400W PoE+ | Managed</div>
+                        <div class="device-ip">Mgmt IP: 10.10.10.4 | VLAN 20</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U23</div>
+                    <div class="device-icon">🔄</div>
+                    <div class="device-info">
+                        <div class="device-name">Hikvision PoE Switch - CAMERAS (Unit 2)</div>
+                        <div class="device-details">24-Port | 400W PoE+ | Managed</div>
+                        <div class="device-ip">Mgmt IP: 10.10.10.5 | VLAN 20</div>
+                    </div>
+                </div>
+
+                <!-- U21-U22: KVM + MONITOR -->
+                <div class="rack-unit">
+                    <div class="unit-number">U22</div>
+                    <div class="device-icon">🖥️</div>
+                    <div class="device-info">
+                        <div class="device-name">Rack Console - KVM</div>
+                        <div class="device-details">17" LCD | Keyboard | Trackpad</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U21</div>
+                    <div class="device-icon">🖥️</div>
+                    <div class="device-info">
+                        <div class="device-name">Security Monitor</div>
+                        <div class="device-details">27" 4K Display - Camera Viewing</div>
+                    </div>
+                </div>
+
+                <!-- U19-U20: PDU -->
+                <div class="rack-unit">
+                    <div class="unit-number">U20</div>
+                    <div class="device-icon">⚡</div>
+                    <div class="device-info">
+                        <div class="device-name">PDU - Power Distribution Unit A</div>
+                        <div class="device-details">20-Outlet | 30A | Switched</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U19</div>
+                    <div class="device-icon">⚡</div>
+                    <div class="device-info">
+                        <div class="device-name">PDU - Power Distribution Unit B</div>
+                        <div class="device-details">20-Outlet | 30A | Switched</div>
+                    </div>
+                </div>
+
+                <!-- U17-U18: EMPTY / SPARE -->
+                <div class="rack-unit empty">
+                    <div class="unit-number">U18</div>
+                    <div class="device-icon">⬜</div>
+                    <div class="device-info">
+                        <div class="device-name">[EMPTY - Expansion Space]</div>
+                        <div class="device-details">Future Equipment</div>
+                    </div>
+                </div>
+                <div class="rack-unit empty">
+                    <div class="unit-number">U17</div>
+                    <div class="device-icon">⬜</div>
+                    <div class="device-info">
+                        <div class="device-name">[EMPTY - Expansion Space]</div>
+                        <div class="device-details">Future Equipment</div>
+                    </div>
+                </div>
+
+                <!-- U15-U16: FAN -->
+                <div class="rack-unit">
+                    <div class="unit-number">U16</div>
+                    <div class="device-icon">🌀</div>
+                    <div class="device-info">
+                        <div class="device-name">Rack Cooling Fan Unit</div>
+                        <div class="device-details">4 x 120mm Fans | Temperature Controlled</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U15</div>
+                    <div class="device-icon">🌡️</div>
+                    <div class="device-info">
+                        <div class="device-name">Temperature Monitor</div>
+                        <div class="device-details">SNMP Enabled | Alerts at 35°C</div>
+                    </div>
+                </div>
+
+                <!-- U1-U14: UPS UNITS (Side of Rack) -->
+            </div>
+
+            <!-- POWER RACK -->
+            <div class="rack">
+                <div class="rack-title">⚡ POWER BACKUP RACK</div>
+                
+                <div class="rack-unit">
+                    <div class="unit-number">U42</div>
+                    <div class="device-icon">🔋</div>
+                    <div class="device-info">
+                        <div class="device-name">APC 6kVA UPS - UNIT A</div>
+                        <div class="device-details">Online Double Conversion | 30 min Runtime</div>
+                        <div class="device-ip">Mgmt IP: 10.10.10.201 | SNMP Enabled</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U41</div>
+                    <div class="device-icon">🔋</div>
+                    <div class="device-info">
+                        <div class="device-name">APC 6kVA UPS - UNIT B</div>
+                        <div class="device-details">Online Double Conversion | 30 min Runtime</div>
+                        <div class="device-ip">Mgmt IP: 10.10.10.202 | SNMP Enabled</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U40</div>
+                    <div class="device-icon">🔋</div>
+                    <div class="device-info">
+                        <div class="device-name">External Battery Pack (Unit A)</div>
+                        <div class="device-details">Extended Runtime Module | +60 min</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U39</div>
+                    <div class="device-icon">🔋</div>
+                    <div class="device-info">
+                        <div class="device-name">External Battery Pack (Unit B)</div>
+                        <div class="device-details">Extended Runtime Module | +60 min</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U38</div>
+                    <div class="device-icon">⚙️</div>
+                    <div class="device-info">
+                        <div class="device-name">ATS - Automatic Transfer Switch</div>
+                        <div class="device-details">UPS ↔ Generator Auto Switch</div>
+                    </div>
+                </div>
+                <div class="rack-unit">
+                    <div class="unit-number">U37</div>
+                    <div class="device-icon">⚡</div>
+                    <div class="device-info">
+                        <div class="device-name">Main Power Distribution Panel</div>
+                        <div class="device-details">3-Phase | 100A Input</div>
+                    </div>
+                </div>
+                <div class="rack-unit empty">
+                    <div class="unit-number">U36</div>
+                    <div class="device-icon">⬜</div>
+                    <div class="device-info">
+                        <div class="device-name">[EMPTY - Future Expansion]</div>
+                        <div class="device-details">Additional Battery Packs</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-title">📋 RACK EQUIPMENT COLOR CODE</div>
+            <div class="legend-items">
+                <div class="legend-item"><div class="color-box" style="background: #00d4ff;"></div><span>Core Network (Switches/Routers)</span></div>
+                <div class="legend-item"><div class="color-box" style="background: #22c55e;"></div><span>FTTH/GPON (OLT/Splitters)</span></div>
+                <div class="legend-item"><div class="color-box" style="background: #eab308;"></div><span>Security (NVR/PoE Switches)</span></div>
+                <div class="legend-item"><div class="color-box" style="background: #ef4444;"></div><span>Firewall/Security</span></div>
+                <div class="legend-item"><div class="color-box" style="background: #a855f7;"></div><span>Power/UPS</span></div>
+                <div class="legend-item"><div class="color-box" style="background: #64748b;"></div><span>Patch Panels/Cable Mgmt</span></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🔧 MDF Room: 42U Server Rack + Separate Power Rack | Total Power: 6kVA + 20kVA Generator Backup</p>
+            <p>📅 Installation Date: 2024 | Cooling: 2 x AC Units (18,000 BTU each) | Temperature: Maintained at 22°C</p>
+        </div>
+    </div>
+</body>
+</html>
